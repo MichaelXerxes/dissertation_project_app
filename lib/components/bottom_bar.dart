@@ -1,9 +1,10 @@
+import 'package:dissertation_project_app/main_utils/app_routes/app_routes.dart';
+import 'package:dissertation_project_app/main.dart'; // Import MainApp to access navigatorKey
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key, required this.title, required this.indexValue});
+  const BottomBar({Key? key, required this.indexValue}) : super(key: key);
 
-  final String title;
   final int indexValue;
 
   @override
@@ -16,20 +17,12 @@ class _BottomBarState extends State<BottomBar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.list),
           label: 'To-Do List',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.stop),
-          label: "To-Do Page",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Sign In',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.cloud),
@@ -42,35 +35,13 @@ class _BottomBarState extends State<BottomBar> {
       onTap: (index) {
         switch (index) {
           case 0:
-            Navigator.pushNamed(
-              context,
-              '/to_do_list_app/todo_list',
-            );
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
             break;
-
           case 1:
-            Navigator.pushNamed(
-              context,
-              '/to_do_list_app/add_todo_page',
-            );
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.homePage);
             break;
           case 2:
-            Navigator.pushNamed(
-              context,
-              '/home_page',
-            );
-            break;
-          case 3:
-            Navigator.pushNamed(
-              context,
-              '/sign_in_app/login_page',
-            );
-            break;
-          case 4:
-            Navigator.pushNamed(
-              context,
-              '/weather_app/weather_page',
-            );
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.weatherPage);
             break;
         }
       },

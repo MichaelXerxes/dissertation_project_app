@@ -29,7 +29,7 @@ class WeatherPage extends StatelessWidget {
       ),
       body: const WeatherScreen(),
       bottomNavigationBar: const BottomBar(
-        title: "Second Page",
+        // title: "Second Page",
         indexValue: 4,
       ),
     );
