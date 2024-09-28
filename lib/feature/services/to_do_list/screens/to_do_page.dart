@@ -1,3 +1,4 @@
+import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,13 +29,25 @@ class ToDoPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final todo = todos[index];
 
-                return ListTile(
-                  title: Text(todo.title),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      context.read<ToDoBloc>().add(RemoveToDo(id: todo.id));
-                    },
+                return Container(
+                  color: PriorityDropdown.getPriorityColor(todo.priority),
+                  child: ListTile(
+                    title: Text(todo.title),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            'Priority: ${todo.priority.toString().split('.').last}'),
+                        Text('Content: ${todo.content}'),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        context.read<ToDoBloc>().add(RemoveToDo(id: todo.id));
+                      },
+                    ),
+                    // style: ListTileStyle.list(),
                   ),
                 );
               },

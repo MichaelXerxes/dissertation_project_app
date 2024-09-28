@@ -11,6 +11,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<InitializeApp>(_onInitializeApp);
     on<UpdateAuthToken>(_onUpdateAuthToken);
     on<UpdateUser>(_onUpdateUser);
+    on<UpdateToDoList>(_onUpdateToDoList);
     on<Logout>(_onLogout);
   }
 
@@ -48,6 +49,16 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       emit(MainLoaded(authToken: currentState.authToken, user: event.user));
     } else {
       emit(MainLoaded(authToken: '', user: event.user));
+    }
+  }
+
+  void _onUpdateToDoList(UpdateToDoList event, Emitter<MainState> emit) {
+    final currentState = state;
+    if (currentState is MainLoaded) {
+      emit(MainLoaded(
+          authToken: currentState.authToken,
+          user: currentState.user,
+          todos: event.todos));
     }
   }
 

@@ -179,23 +179,29 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                       ],
                     ),
                     child: Material(
-                      animationDuration: Duration(milliseconds: 675),
-                      color: Colors.transparent,
-                      child: IconButton(
-                          splashColor: Colors.orange[400],
-                          splashRadius: 32.0,
-                          onPressed: isClickable
-                              ? () {
-                                  setState(() {
-                                    _onTap(999);
-                                  });
-                                }
-                              : null,
-                          icon: Image.network(
-                            "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
-                            height: toggleButton ? 250.0 : 142.0,
-                          )),
-                    ),
+                        animationDuration: Duration(milliseconds: 675),
+                        color: Colors.transparent,
+                        child: IconButton(
+                            splashColor: Colors.orange[400],
+                            splashRadius: 32.0,
+                            onPressed: isClickable
+                                ? () {
+                                    setState(() {
+                                      _onTap(999);
+                                    });
+                                  }
+                                : null,
+                            icon: Image.asset(
+                              "assets/images/star.png",
+                              height: toggleButton ? 250.0 : 142.0,
+                            )
+                            // "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
+
+                            )),
+                    // Image.network(
+                    //   "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
+                    //   height: toggleButton ? 250.0 : 142.0,
+                    // )),
                   ),
                 ),
               ),
