@@ -1,7 +1,7 @@
 import 'package:dissertation_project_app/home_page.dart';
-import 'package:dissertation_project_app/main_utils/app_repositories/app_repositories.dart';
-import 'package:dissertation_project_app/main_utils/app_routes/app_routes.dart';
-import 'package:dissertation_project_app/main_utils/bloc_provider/bloc_provider.dart';
+import 'package:dissertation_project_app/core/main_utils/app_repositories/app_repositories.dart';
+import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
+import 'package:dissertation_project_app/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
 //final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
