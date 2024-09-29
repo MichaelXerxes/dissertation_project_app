@@ -11,6 +11,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   ToDoBloc() : super(ToDoInitial()) {
     on<AddToDo>(_onAddToDo);
     on<RemoveToDo>(_onRemoveToDo);
+    on<UpdateToDo>(_onUpdateToDo);
   }
 
   final List<ToDoItem> _todos = [];
@@ -23,5 +24,14 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   FutureOr<void> _onRemoveToDo(RemoveToDo event, Emitter<ToDoState> emit) {
     _todos.removeWhere((todo) => todo.id == event.id);
     emit(ToDoLoadSuccess(todos: List.from(_todos)));
+  }
+
+  FutureOr<void> _onUpdateToDo(UpdateToDo event, Emitter<ToDoState> emit) {
+    final index = _todos.indexWhere((todo) => todo.id == event.todo.id);
+
+    if (index != -1) {
+      _todos[index] = event.todo;
+      emit(ToDoLoadSuccess(todos: List.from(_todos)));
+    }
   }
 }

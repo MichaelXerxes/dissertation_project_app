@@ -1,5 +1,6 @@
 import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/screens/edit_item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_item_page.dart';
@@ -41,11 +42,36 @@ class ToDoPage extends StatelessWidget {
                         Text('Content: ${todo.content}'),
                       ],
                     ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        context.read<ToDoBloc>().add(RemoveToDo(id: todo.id));
-                      },
+                    trailing:
+                        //  IconButton(
+                        //   icon: Icon(Icons.delete),
+                        //   onPressed: () {
+                        //     context.read<ToDoBloc>().add(RemoveToDo(id: todo.id));
+                        //   },
+                        // ),
+                        Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            // Navigate to EditItemPage
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditItemPage(todo: todo),
+                              ),
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            context
+                                .read<ToDoBloc>()
+                                .add(RemoveToDo(id: todo.id));
+                          },
+                        ),
+                      ],
                     ),
                     // style: ListTileStyle.list(),
                   ),

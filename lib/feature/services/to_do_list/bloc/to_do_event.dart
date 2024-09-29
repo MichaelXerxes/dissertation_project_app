@@ -25,3 +25,12 @@ class RemoveToDo extends ToDoEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class UpdateToDo extends ToDoEvent {
+  final ToDoItem todo;
+
+  const UpdateToDo({required this.todo});
+
+  @override
+  List<Object?> get props => [todo];
+}
