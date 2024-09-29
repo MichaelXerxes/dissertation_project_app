@@ -1,5 +1,5 @@
 import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
-import 'package:dissertation_project_app/core/enums/piority_level.dart';
+import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/core/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _AddItemPageState extends State<AddItemPage> {
 
   final uuid = Uuid();
 
-  PriorityLevel _selectedPriority = PriorityLevel.MEDIUM;
+  PriorityLevelEnum _selectedPriority = PriorityLevelEnum.MEDIUM;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _AddItemPageState extends State<AddItemPage> {
               SizedBox(height: 20),
               PriorityDropdown(
                 selectedPriority: _selectedPriority,
-                onChanged: (PriorityLevel newPriority) {
+                onChanged: (PriorityLevelEnum newPriority) {
                   setState(() {
                     _selectedPriority = newPriority;
                   });
@@ -78,7 +78,7 @@ class _AddItemPageState extends State<AddItemPage> {
                       content: _contentController.text,
                       priority: _selectedPriority,
                     );
-                    context.read<ToDoBloc>().add(AddToDo(todo: todo));
+                    context.read<ToDoBloc>().add(AddToDoListItem(todo: todo));
                     Navigator.of(context).pop();
                   }
                 },

@@ -35,12 +35,14 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
+          heroTag: 'fab_increment',
           onPressed: () => {},
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ),
         const SizedBox(height: 8),
         FloatingActionButton(
+          heroTag: 'fab_decrement',
           onPressed: () => {},
           tooltip: 'Decrement',
           child: const Icon(Icons.remove),

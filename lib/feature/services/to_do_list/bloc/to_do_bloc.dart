@@ -9,24 +9,27 @@ part 'to_do_state.dart';
 
 class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   ToDoBloc() : super(ToDoInitial()) {
-    on<AddToDo>(_onAddToDo);
-    on<RemoveToDo>(_onRemoveToDo);
-    on<UpdateToDo>(_onUpdateToDo);
+    on<AddToDoListItem>(_onAddToDoListItem);
+    on<RemoveToDoListItem>(_onRemoveToDoListItem);
+    on<UpdateToDoList>(_onUpdateToDoList);
   }
 
   final List<ToDoItem> _todos = [];
 
-  FutureOr<void> _onAddToDo(AddToDo event, Emitter<ToDoState> emit) {
+  FutureOr<void> _onAddToDoListItem(
+      AddToDoListItem event, Emitter<ToDoState> emit) {
     _todos.add(event.todo);
     emit(ToDoLoadSuccess(todos: List.from(_todos)));
   }
 
-  FutureOr<void> _onRemoveToDo(RemoveToDo event, Emitter<ToDoState> emit) {
+  FutureOr<void> _onRemoveToDoListItem(
+      RemoveToDoListItem event, Emitter<ToDoState> emit) {
     _todos.removeWhere((todo) => todo.id == event.id);
     emit(ToDoLoadSuccess(todos: List.from(_todos)));
   }
 
-  FutureOr<void> _onUpdateToDo(UpdateToDo event, Emitter<ToDoState> emit) {
+  FutureOr<void> _onUpdateToDoList(
+      UpdateToDoList event, Emitter<ToDoState> emit) {
     final index = _todos.indexWhere((todo) => todo.id == event.todo.id);
 
     if (index != -1) {

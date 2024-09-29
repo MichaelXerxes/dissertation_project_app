@@ -22,7 +22,6 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
   bool isClickedToNavigate = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = AnimationController(
         vsync: this,
@@ -58,13 +57,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return
-        //  Container(
-        //   height: 300.0, //double.infinity, //MediaQuery.of(context).size.height,
-        //   width: double.infinity, //MediaQuery.of(context).size.width,
-        //   child: Center(
-        // child:
-        Align(
+    return Align(
       alignment: Alignment.centerLeft, // const Alignment(-1.0, 0.0),
       child: Container(
         height: 450.0, // screenSize.height, //
@@ -235,6 +228,8 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         print("Icon 0 (Message) tapped");
         break;
       case 1:
+        MainApp.navigatorKey.currentState!
+            .pushNamed(AppRoutes.loadAppDataScreen);
         print("Icon 1 (Phone) tapped");
         break;
       case 2:

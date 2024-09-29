@@ -1,9 +1,10 @@
 import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
-import 'package:dissertation_project_app/core/enums/piority_level.dart';
+import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/core/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditItemPage extends StatefulWidget {
   final ToDoItem todo;
@@ -19,12 +20,11 @@ class _EditItemPageState extends State<EditItemPage> {
 
   late TextEditingController _titleController;
   late TextEditingController _contentController;
-  late PriorityLevel _selectedPriority;
+  late PriorityLevelEnum _selectedPriority;
 
   @override
   void initState() {
     super.initState();
-    // Initialize controllers and values with the existing todo data
     _titleController = TextEditingController(text: widget.todo.title);
     _contentController = TextEditingController(text: widget.todo.content);
     _selectedPriority = widget.todo.priority;
@@ -52,50 +52,41 @@ class _EditItemPageState extends State<EditItemPage> {
               Text('Edit Event'),
               TextFormField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter title',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a to-do title.';
-                  }
-                  return null;
-                },
+                validator: _validateValue,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
-                controller: _contentController,
-                decoration: InputDecoration(
-                  hintText: 'Content...',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter content.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
+                  controller: _contentController,
+                  decoration: const InputDecoration(
+                    hintText: 'Content...',
+                  ),
+                  validator: _validateValue),
+              const SizedBox(height: 20),
               PriorityDropdown(
                 selectedPriority: _selectedPriority,
-                onChanged: (PriorityLevel newPriority) {
+                onChanged: (PriorityLevelEnum newPriority) {
                   setState(() {
                     _selectedPriority = newPriority;
                   });
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final updatedToDo = ToDoItem(
-                      id: widget.todo.id, // Keep the same ID
+                      id: widget.todo.id,
                       title: _titleController.text,
                       content: _contentController.text,
                       priority: _selectedPriority,
                     );
-                    // Dispatch an update event instead of an add event
-                    context.read<ToDoBloc>().add(UpdateToDo(todo: updatedToDo));
+
+                    context
+                        .read<ToDoBloc>()
+                        .add(UpdateToDoList(todo: updatedToDo));
                     Navigator.of(context).pop();
                   }
                 },
@@ -106,5 +97,12 @@ class _EditItemPageState extends State<EditItemPage> {
         ),
       ),
     );
+  }
+
+  String? _validateValue(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a to-do title.';
+    }
+    return null;
   }
 }

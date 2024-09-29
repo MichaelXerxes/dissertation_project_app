@@ -1,4 +1,4 @@
-enum PriorityLevel {
+enum PriorityLevelEnum {
   LOW,
   MEDIUM,
   HIGH,

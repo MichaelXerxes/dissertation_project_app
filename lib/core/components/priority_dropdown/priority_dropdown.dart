@@ -1,9 +1,9 @@
-import 'package:dissertation_project_app/core/enums/piority_level.dart';
+import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:flutter/material.dart';
 
 class PriorityDropdown extends StatefulWidget {
-  final PriorityLevel selectedPriority;
-  final ValueChanged<PriorityLevel> onChanged;
+  final PriorityLevelEnum selectedPriority;
+  final ValueChanged<PriorityLevelEnum> onChanged;
 
   const PriorityDropdown({
     Key? key,
@@ -14,13 +14,13 @@ class PriorityDropdown extends StatefulWidget {
   @override
   _PriorityDropdownState createState() => _PriorityDropdownState();
 
-  static Color getPriorityColor(PriorityLevel priority) {
+  static Color getPriorityColor(PriorityLevelEnum priority) {
     switch (priority) {
-      case PriorityLevel.LOW:
+      case PriorityLevelEnum.LOW:
         return Colors.green;
-      case PriorityLevel.MEDIUM:
+      case PriorityLevelEnum.MEDIUM:
         return Colors.amber;
-      case PriorityLevel.HIGH:
+      case PriorityLevelEnum.HIGH:
         return Colors.purple;
       default:
         return Colors.grey;
@@ -29,7 +29,7 @@ class PriorityDropdown extends StatefulWidget {
 }
 
 class _PriorityDropdownState extends State<PriorityDropdown> {
-  late PriorityLevel _selectedPriority;
+  late PriorityLevelEnum _selectedPriority;
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
         ],
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<PriorityLevel>(
+        child: DropdownButton<PriorityLevelEnum>(
           value: _selectedPriority,
           dropdownColor: PriorityDropdown.getPriorityColor(_selectedPriority),
           isExpanded: true,
@@ -64,8 +64,8 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
             fontSize: 16.0,
             fontWeight: FontWeight.w600,
           ),
-          items: PriorityLevel.values.map((PriorityLevel priority) {
-            return DropdownMenuItem<PriorityLevel>(
+          items: PriorityLevelEnum.values.map((PriorityLevelEnum priority) {
+            return DropdownMenuItem<PriorityLevelEnum>(
               value: priority,
               child: Text(
                 priority.toString().split('.').last,
@@ -75,7 +75,7 @@ class _PriorityDropdownState extends State<PriorityDropdown> {
               ),
             );
           }).toList(),
-          onChanged: (PriorityLevel? newValue) {
+          onChanged: (PriorityLevelEnum? newValue) {
             setState(() {
               _selectedPriority = newValue!;
             });
