@@ -8,10 +8,15 @@ part 'to_do_event.dart';
 part 'to_do_state.dart';
 
 class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
+  late Timer _expirationCheckTimer;
   ToDoBloc() : super(ToDoInitial()) {
     on<AddToDoListItem>(_onAddToDoListItem);
     on<RemoveToDoListItem>(_onRemoveToDoListItem);
     on<UpdateToDoList>(_onUpdateToDoList);
+
+    _expirationCheckTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      _checkForExpiredItems();
+    });
   }
 
   final List<ToDoItem> _todos = [];
@@ -36,5 +41,12 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
       _todos[index] = event.todo;
       emit(ToDoLoadSuccess(todos: List.from(_todos)));
     }
+  }
+
+  FutureOr<void> _checkForExpiredItems() {
+    final now = DateTime.now();
+    _todos.removeWhere((todo) => todo.expiredDate.isBefore(now));
+
+    emit(ToDoLoadSuccess(todos: List.from(_todos)));
   }
 }

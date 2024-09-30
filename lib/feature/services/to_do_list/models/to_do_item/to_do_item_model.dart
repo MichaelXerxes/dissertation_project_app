@@ -6,6 +6,7 @@ class ToDoItem extends Equatable {
   final String title;
   final String content;
   final DateTime dateTimeAdded;
+  final DateTime expiredDate;
   final PriorityLevelEnum priority;
 
   ToDoItem({
@@ -13,9 +14,13 @@ class ToDoItem extends Equatable {
     required this.title,
     required this.content,
     DateTime? dateTimeAdded,
+    DateTime? expiredDate,
     this.priority = PriorityLevelEnum.LOW,
-  }) : dateTimeAdded = dateTimeAdded ?? DateTime.now();
+  })  : dateTimeAdded = dateTimeAdded ?? DateTime.now(),
+        expiredDate = expiredDate ??
+            DateTime.now().add(const Duration(days: 60, milliseconds: 30));
 
   @override
-  List<Object?> get props => [id, title, content, dateTimeAdded, priority];
+  List<Object?> get props =>
+      [id, title, content, dateTimeAdded, expiredDate, priority];
 }

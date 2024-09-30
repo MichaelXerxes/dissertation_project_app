@@ -62,7 +62,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
       child: Container(
         height: 450.0, // screenSize.height, //
         width: screenSize.width,
-        decoration: BoxDecoration(color: Colors.pink[50]),
+        decoration: BoxDecoration(color: Colors.transparent),
         child: Stack(
           children: [
             AnimatedItemContainerSideMenu(

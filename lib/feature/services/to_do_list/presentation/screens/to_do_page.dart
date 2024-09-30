@@ -1,3 +1,5 @@
+import 'package:dissertation_project_app/core/helpers/date_format_helper.dart';
+import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
 import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
 import 'package:dissertation_project_app/core/widgets/filter_menu/filter_menu_to_do_list.dart';
 import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority_dropdown.dart';
@@ -5,7 +7,7 @@ import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
-import 'package:dissertation_project_app/feature/services/to_do_list/screens/edit_item_page.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/edit_item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_item_page.dart';
@@ -77,11 +79,13 @@ class _ToDoPageState extends State<ToDoPage> {
       body: BlocBuilder<ToDoBloc, ToDoState>(
         builder: (context, state) {
           if (state is ToDoInitial) {
-            return const Center(child: Text('No to-dos yet.'));
+            return const Center(child: Text('Nothing to do yet...'));
+          } else if (state is ToDoLoading) {
+            return const LoadAppDataScreen();
           } else if (state is ToDoLoadSuccess) {
             final todos = _filteredToDos(state.todos);
             if (todos.isEmpty) {
-              return const Center(child: Text('No to-dos yet.'));
+              return const Center(child: Text('Nothing to do yet...'));
             }
 
             return ListView.builder(
@@ -98,7 +102,14 @@ class _ToDoPageState extends State<ToDoPage> {
                       children: [
                         Text(
                             'Priority: ${todo.priority.toString().split('.').last}'),
-                        Text('Content: ${todo.content}'),
+                        Text(
+                          'Content: ${todo.content}',
+                          style: const TextStyle(color: Colors.black54),
+                          maxLines: 8,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                            'Expired on: ${DateFormatHelper.dateFomrat(todo.expiredDate)}')
                       ],
                     ),
                     trailing: Row(
@@ -142,10 +153,10 @@ class _ToDoPageState extends State<ToDoPage> {
               MaterialPageRoute(builder: (context) => AddItemPage()),
             );
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
-      bottomNavigationBar: BottomBar(indexValue: 2),
+      bottomNavigationBar: const BottomBar(indexValue: 1),
     );
   }
 }

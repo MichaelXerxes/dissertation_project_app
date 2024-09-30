@@ -17,12 +17,12 @@ class _BottomBarState extends State<BottomBar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
-          label: 'To-Do List',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.list),
+          label: 'To-Do List',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.cloud),
@@ -35,11 +35,12 @@ class _BottomBarState extends State<BottomBar> {
       onTap: (index) {
         switch (index) {
           case 0:
-            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
-            break;
-          case 1:
             MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.homePage);
             break;
+          case 1:
+            MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.toDoPage);
+            break;
+
           case 2:
             MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.weatherPage);
             break;

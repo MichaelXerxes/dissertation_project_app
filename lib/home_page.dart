@@ -1,5 +1,4 @@
-// import 'package:dissertation_project_app/bloc/counter_bloc.dart';
-// import 'package:dissertation_project_app/cubit/counter_cubit.dart';
+import 'package:dissertation_project_app/core/tools/flutter_helper.dart';
 import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
 import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button/custom_floating_button.dart';
 import 'package:dissertation_project_app/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
@@ -19,11 +18,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   title: Text(widget.title),
+      // ),
+      backgroundColor: Colors.black45,
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 8),
       ]),
-      bottomNavigationBar: BottomBar(indexValue: 1),
+      bottomNavigationBar: BottomBar(indexValue: 0),
     );
   }
 }

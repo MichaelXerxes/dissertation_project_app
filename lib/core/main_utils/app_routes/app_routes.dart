@@ -1,7 +1,7 @@
 import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
 import 'package:dissertation_project_app/core/screens/test_screen.dart';
-import 'package:dissertation_project_app/feature/services/to_do_list/screens/add_item_page.dart';
-import 'package:dissertation_project_app/feature/services/to_do_list/screens/to_do_page.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/add_item_page.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/to_do_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dissertation_project_app/home_page.dart';
 

@@ -2,9 +2,9 @@ import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditItemPage extends StatefulWidget {
   final ToDoItem todo;
@@ -21,6 +21,7 @@ class _EditItemPageState extends State<EditItemPage> {
   late TextEditingController _titleController;
   late TextEditingController _contentController;
   late PriorityLevelEnum _selectedPriority;
+  DateTime? _expiredDateSelected;
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _EditItemPageState extends State<EditItemPage> {
     _titleController = TextEditingController(text: widget.todo.title);
     _contentController = TextEditingController(text: widget.todo.content);
     _selectedPriority = widget.todo.priority;
+    _expiredDateSelected = widget.todo.expiredDate;
   }
 
   @override
@@ -74,6 +76,15 @@ class _EditItemPageState extends State<EditItemPage> {
                 },
               ),
               const SizedBox(height: 20),
+              DatePicker(
+                selectedDate: _expiredDateSelected,
+                onDateSelected: (DateTime? selectedDate) {
+                  setState(() {
+                    _expiredDateSelected = selectedDate;
+                  });
+                },
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -82,6 +93,7 @@ class _EditItemPageState extends State<EditItemPage> {
                       title: _titleController.text,
                       content: _contentController.text,
                       priority: _selectedPriority,
+                      expiredDate: _expiredDateSelected,
                     );
 
                     context

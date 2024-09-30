@@ -1,6 +1,5 @@
 part of 'to_do_bloc.dart';
 
-// States
 abstract class ToDoState extends Equatable {
   const ToDoState();
 
@@ -9,6 +8,8 @@ abstract class ToDoState extends Equatable {
 }
 
 class ToDoInitial extends ToDoState {}
+
+class ToDoLoading extends ToDoState {}
 
 class ToDoLoadSuccess extends ToDoState {
   final List<ToDoItem> todos;

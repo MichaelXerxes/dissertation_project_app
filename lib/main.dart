@@ -4,7 +4,7 @@ import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.d
 import 'package:dissertation_project_app/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MainApp());
@@ -22,8 +22,8 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+        // localizationsDelegates: AppLocalizations.localizationsDelegates,
+        // supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('en'),
         routes: AppRoutes.routes,
         home: Scaffold(
