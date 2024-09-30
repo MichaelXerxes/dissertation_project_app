@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:dissertation_project_app/core/models/to_do_item/to_do_item_model.dart';
-import 'package:dissertation_project_app/core/models/user/user_model.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
+import 'package:dissertation_project_app/feature/auth/user/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 part 'main_event.dart';

@@ -33,9 +33,30 @@ class FilterMenuToDoList extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text('Priority'),
+          title: Text('Priority High to Low'),
           onTap: () {
             onFilterSelected(FilterMenuToDoListEnum.PRIORITY);
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Text('Priority HIGH'),
+          onTap: () {
+            onFilterSelected(FilterMenuToDoListEnum.HIGH);
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Text('Priority MEDIUM'),
+          onTap: () {
+            onFilterSelected(FilterMenuToDoListEnum.MEDIUM);
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Text('Priority LOW'),
+          onTap: () {
+            onFilterSelected(FilterMenuToDoListEnum.LOW);
             Navigator.pop(context);
           },
         ),

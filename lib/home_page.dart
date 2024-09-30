@@ -1,8 +1,8 @@
 // import 'package:dissertation_project_app/bloc/counter_bloc.dart';
 // import 'package:dissertation_project_app/cubit/counter_cubit.dart';
-import 'package:dissertation_project_app/core/components/bottom_bar.dart';
-import 'package:dissertation_project_app/core/components/buttons/custom_floating_button/custom_floating_button.dart';
-import 'package:dissertation_project_app/core/components/buttons/custom_side_button_menu/custom_side_button_menu.dart';
+import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
+import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button/custom_floating_button.dart';
+import 'package:dissertation_project_app/core/widgets/buttons/custom_side_button_menu/custom_side_button_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

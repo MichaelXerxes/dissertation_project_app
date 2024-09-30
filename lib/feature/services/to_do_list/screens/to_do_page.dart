@@ -1,8 +1,9 @@
-import 'package:dissertation_project_app/core/components/bottom_bar.dart';
-import 'package:dissertation_project_app/core/components/filter_menu/filter_menu_to_do_list.dart';
-import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
+import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
+import 'package:dissertation_project_app/core/widgets/filter_menu/filter_menu_to_do_list.dart';
+import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.dart';
-import 'package:dissertation_project_app/core/models/to_do_item/to_do_item_model.dart';
+import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/screens/edit_item_page.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +20,31 @@ class ToDoPage extends StatefulWidget {
 class _ToDoPageState extends State<ToDoPage> {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
 
-  List<ToDoItem> _filteredToDos(List<ToDoItem> todos) {
-    if (_selectedFilter == FilterMenuToDoListEnum.ALL) {
-      return todos;
-    } else if (_selectedFilter == FilterMenuToDoListEnum.TITLE) {
-      return todos..sort((a, b) => a.title.compareTo(b.title));
-    } else if (_selectedFilter == FilterMenuToDoListEnum.DATE) {
-      return todos..sort((a, b) => a.dateTimeAdded.compareTo(b.dateTimeAdded));
-    } else if (_selectedFilter == FilterMenuToDoListEnum.PRIORITY) {
-      return todos
-        ..sort((a, b) => b.priority.index.compareTo(a.priority.index));
+  List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
+    switch (_selectedFilter) {
+      case FilterMenuToDoListEnum.TITLE:
+        return toDoList..sort((a, b) => a.title.compareTo(b.title));
+      case FilterMenuToDoListEnum.DATE:
+        return toDoList
+          ..sort((a, b) => a.dateTimeAdded.compareTo(b.dateTimeAdded));
+      case FilterMenuToDoListEnum.PRIORITY:
+        return toDoList
+          ..sort((a, b) => b.priority.index.compareTo(a.priority.index));
+      case FilterMenuToDoListEnum.HIGH:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.HIGH)
+            .toList();
+      case FilterMenuToDoListEnum.MEDIUM:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.MEDIUM)
+            .toList();
+      case FilterMenuToDoListEnum.LOW:
+        return toDoList
+            .where((todo) => todo.priority == PriorityLevelEnum.LOW)
+            .toList();
+      default:
+        return toDoList;
     }
-    return todos;
   }
 
   void _filterShowModalBottomSheet() {
@@ -52,7 +66,7 @@ class _ToDoPageState extends State<ToDoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToDo List'),
+        title: Text('To-Do Service '),
         actions: [
           IconButton(
             icon: const Icon(Icons.menu),

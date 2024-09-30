@@ -1,4 +1,4 @@
-import 'package:dissertation_project_app/core/components/bottom_bar.dart';
+import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'presentation/screens/weather_screen.dart';
 

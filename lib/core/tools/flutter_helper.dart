@@ -1,31 +1,29 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dissertation_project_app/core/helpers/constants.dart';
 
+extension BuildContextExtension on BuildContext {
+  TextTheme get text => Theme.of(this).textTheme;
 
-// import 'package:dissertation_project_app/core/main_utils/constants.dart';
+  double get deviceHeight => MediaQuery.of(this).size.height;
 
-// extension BuildContextExtension on BuildContext {
-//   TextTheme get text => Theme.of(this).textTheme;
+  double get deviceWidth => MediaQuery.of(this).size.width;
 
-//   double get deviceHeight => MediaQuery.of(this).size.height;
+  AppLocalizations get strings => AppLocalizations.of(this);
 
-//   double get deviceWidth => MediaQuery.of(this).size.width;
+  bool get isMobile => MediaQuery.of(this).size.width < Constants.MOBILE_WIDTH;
 
-//   AppLocalizations get strings => AppLocalizations.of(this);
+  bool get isTablet => MediaQuery.of(this).size.width >= Constants.MOBILE_WIDTH;
 
-//   bool get isMobile => MediaQuery.of(this).size.width < Constants.MOBILE_WIDTH;
+  double get workspaceHeight {
+    final screenHeight = MediaQuery.of(this).size.height;
+    final basicAppBarHeight = MediaQuery.of(this).padding.top + kToolbarHeight;
+    final basicBottomBarHeight =
+        MediaQuery.of(this).padding.bottom + kBottomNavigationBarHeight;
+    return screenHeight - basicAppBarHeight - basicBottomBarHeight;
+  }
 
-//   bool get isTablet => MediaQuery.of(this).size.width >= Constants.MOBILE_WIDTH;
-
-//   double get workspaceHeight {
-//     final screenHeight = MediaQuery.of(this).size.height;
-//     final basicAppBarHeight = MediaQuery.of(this).padding.top + kToolbarHeight;
-//     final basicBottomBarHeight =
-//         MediaQuery.of(this).padding.bottom + kBottomNavigationBarHeight;
-//     return screenHeight - basicAppBarHeight - basicBottomBarHeight;
-//   }
-
-//   void safeNavigateBack() {
-//     if (Navigator.of(this).canPop()) Navigator.of(this).pop();
-//   }
-// }
+  void navigateBackSafe() {
+    if (Navigator.of(this).canPop()) Navigator.of(this).pop();
+  }
+}

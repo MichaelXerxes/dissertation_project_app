@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dissertation_project_app/core/components/containers/animated_item_container/animated_item_container_side_menu.dart';
+import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container_side_menu.dart';
 import 'package:dissertation_project_app/main.dart';
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -233,6 +233,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         print("Icon 1 (Phone) tapped");
         break;
       case 2:
+        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.testScreen);
         print("Icon 2 (Computer) tapped");
         break;
       case 3:

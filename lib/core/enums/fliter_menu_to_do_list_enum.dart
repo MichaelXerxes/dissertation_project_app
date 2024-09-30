@@ -1,1 +1,9 @@
-enum FilterMenuToDoListEnum { ALL, TITLE, DATE, PRIORITY }
+enum FilterMenuToDoListEnum {
+  ALL,
+  TITLE,
+  DATE,
+  PRIORITY,
+  LOW,
+  MEDIUM,
+  HIGH,
+}

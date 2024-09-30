@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dissertation_project_app/core/components/containers/animated_item_container/animated_item_container.dart';
+import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container.dart';
 import 'package:dissertation_project_app/main.dart';
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';

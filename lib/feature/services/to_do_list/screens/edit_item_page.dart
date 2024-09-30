@@ -1,6 +1,6 @@
-import 'package:dissertation_project_app/core/components/priority_dropdown/priority_dropdown.dart';
+import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
-import 'package:dissertation_project_app/core/models/to_do_item/to_do_item_model.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
