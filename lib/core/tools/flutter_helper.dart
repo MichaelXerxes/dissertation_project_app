@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:dissertation_project_app/core/helpers/constants.dart';
 
 extension BuildContextExtension on BuildContext {
-  TextTheme get text => Theme.of(this).textTheme;
-
   double get deviceHeight => MediaQuery.of(this).size.height;
 
   double get deviceWidth => MediaQuery.of(this).size.width;

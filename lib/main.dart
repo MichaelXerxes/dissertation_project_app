@@ -1,3 +1,4 @@
+import 'package:dissertation_project_app/core/theme/text_styles.dart';
 import 'package:dissertation_project_app/home_page.dart';
 import 'package:dissertation_project_app/core/main_utils/app_repositories/app_repositories.dart';
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
@@ -22,6 +23,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
+        theme: customTheme,
         // localizationsDelegates: AppLocalizations.localizationsDelegates,
         // supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('en'),

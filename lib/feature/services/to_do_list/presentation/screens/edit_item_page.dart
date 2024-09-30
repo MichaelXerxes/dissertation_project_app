@@ -1,3 +1,4 @@
+import 'package:dissertation_project_app/core/helpers/constants.dart';
 import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
@@ -53,12 +54,12 @@ class _EditItemPageState extends State<EditItemPage> {
             children: [
               Text('Edit Event'),
               TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter title',
-                ),
-                validator: _validateValue,
-              ),
+                  controller: _titleController,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter title',
+                  ),
+                  validator: _validateValue,
+                  maxLength: Constants.MAX_LENGHT_TEXT_TITLE),
               const SizedBox(height: 20),
               TextFormField(
                   controller: _contentController,

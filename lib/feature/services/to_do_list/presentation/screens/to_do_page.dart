@@ -7,7 +7,7 @@ import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
-import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/edit_item_page.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_item_page.dart';
@@ -21,7 +21,7 @@ class ToDoPage extends StatefulWidget {
 
 class _ToDoPageState extends State<ToDoPage> {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
-
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
     switch (_selectedFilter) {
       case FilterMenuToDoListEnum.TITLE:
@@ -83,60 +83,17 @@ class _ToDoPageState extends State<ToDoPage> {
           } else if (state is ToDoLoading) {
             return const LoadAppDataScreen();
           } else if (state is ToDoLoadSuccess) {
-            final todos = _filteredToDos(state.todos);
-            if (todos.isEmpty) {
+            final toDoList = _filteredToDos(state.todos);
+            if (toDoList.isEmpty) {
               return const Center(child: Text('Nothing to do yet...'));
             }
 
             return ListView.builder(
-              itemCount: todos.length,
+              itemCount: toDoList.length,
               itemBuilder: (context, index) {
-                final todo = todos[index];
+                final todo = toDoList[index];
 
-                return Container(
-                  color: PriorityDropdown.getPriorityColor(todo.priority),
-                  child: ListTile(
-                    title: Text(todo.title),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            'Priority: ${todo.priority.toString().split('.').last}'),
-                        Text(
-                          'Content: ${todo.content}',
-                          style: const TextStyle(color: Colors.black54),
-                          maxLines: 8,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                            'Expired on: ${DateFormatHelper.dateFomrat(todo.expiredDate)}')
-                      ],
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditItemPage(todo: todo),
-                              ),
-                            );
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            context.read<ToDoBloc>().add(
-                                  RemoveToDoListItem(id: todo.id),
-                                );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return ToDoListItem(todo: todo);
               },
             );
           } else {
