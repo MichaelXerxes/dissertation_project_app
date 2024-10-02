@@ -1,6 +1,5 @@
 part of 'to_do_bloc.dart';
 
-// Events
 abstract class ToDoEvent extends Equatable {
   const ToDoEvent();
 
@@ -26,6 +25,15 @@ class RemoveToDoListItem extends ToDoEvent {
   List<Object?> get props => [id];
 }
 
+class CheckForExpiredItems extends ToDoEvent {
+  //final String id;{required this.id}
+
+  const CheckForExpiredItems();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class UpdateToDoList extends ToDoEvent {
   final ToDoItem todo;
 
@@ -34,3 +42,10 @@ class UpdateToDoList extends ToDoEvent {
   @override
   List<Object?> get props => [todo];
 }
+
+// class CheckForExpiredItems extends ToDoEvent {
+//   const CheckForExpiredItems();
+//
+//   @override
+//   List<Object?> get props => [];
+// }

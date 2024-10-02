@@ -144,7 +144,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                 child: Transform.rotate(
                   angle: _animation.value * pi * (3 / 4),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 675),
+                    duration: const Duration(milliseconds: 1675),
                     curve: Curves.easeOut,
                     height:
                         // isClickedToNavigate
@@ -157,7 +157,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                         //     :
                         toggleButton ? 300.0 : 160.0,
                     decoration: BoxDecoration(
-                      color: Colors.blue[600],
+                      color: Colors.transparent,//blue[600],
                       borderRadius:
                           // isClickedToNavigate
                           //     ? BorderRadius.circular(0)
@@ -184,13 +184,15 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                                     });
                                   }
                                 : null,
-                            icon: Image.asset(
-                              "assets/images/star.png",
-                              height: toggleButton ? 250.0 : 142.0,
+                            icon:
+                               Image.asset(
+                                "assets/images/earth.png",
+                                height:  280.0 ,
+                              ),
                             )
                             // "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
 
-                            )),
+                            ),
                     // Image.network(
                     //   "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
                     //   height: toggleButton ? 250.0 : 142.0,
@@ -274,10 +276,17 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     } else {
       toggleButton = !toggleButton;
       _controller.reverse();
-      alignment1 = alignment2 =
-          alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
-
-      size1 = size2 = size3 = size4 = size5 = 20.0;
+      // alignment1 = alignment2 =
+      //     alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
+      //
+      // size1 = size2 = size3 = size4 = size5 = 20.0;
+      Future.delayed(const Duration(milliseconds: 100), () {
+        setState(() {
+          alignment1 = alignment2 =
+              alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
+          size1 = size2 = size3 = size4 = size5 = 20.0; // Smooth reduction
+        });
+      });
     }
   }
 }

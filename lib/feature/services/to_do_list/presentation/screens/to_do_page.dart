@@ -22,6 +22,7 @@ class ToDoPage extends StatefulWidget {
 class _ToDoPageState extends State<ToDoPage> {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
   List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
     switch (_selectedFilter) {
       case FilterMenuToDoListEnum.TITLE:
@@ -87,7 +88,8 @@ class _ToDoPageState extends State<ToDoPage> {
             if (toDoList.isEmpty) {
               return const Center(child: Text('Nothing to do yet...'));
             }
-
+            BlocProvider.of<ToDoBloc>(context)
+                .add(const CheckForExpiredItems());
             return ListView.builder(
               itemCount: toDoList.length,
               itemBuilder: (context, index) {

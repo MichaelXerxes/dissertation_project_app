@@ -4,10 +4,12 @@ import 'package:dissertation_project_app/core/main_utils/app_repositories/app_re
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
 import 'package:dissertation_project_app/core/main_utils/bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:timezone/data/latest.dart' as tz;
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
+  tz.initializeTimeZones();
   runApp(const MainApp());
 }
 
