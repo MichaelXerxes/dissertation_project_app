@@ -22,31 +22,35 @@ class ToDoListItem extends StatelessWidget {
                 style: BorderStyle.solid),
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Column(
             children: [
-              Text(
-                todo.title,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Priority: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    todo.title,
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  Text.rich(
                     TextSpan(
-                      text: todo.priority.toString().split('.').last,
-                      style: TextStyle(
-                        color: PriorityDropdown.getPriorityColor(todo.priority),
-                      ),
+                      children: [
+                        const TextSpan(
+                          text: 'Priority: ',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text: todo.priority.toString().split('.').last,
+                          style: TextStyle(
+                            color: PriorityDropdown.getPriorityColor(todo.priority),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
+                  )
+                ],
+              ),
             ],
           ),
           subtitle: Row(

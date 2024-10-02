@@ -4,4 +4,5 @@ class Constants {
   static const MOBILE_WIDTH = 600;
 
   static const MAX_LENGHT_TEXT_TITLE = 20;
+  static const MAX_LENGHT_TEXT_CONTENT = 300;
 }

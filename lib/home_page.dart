@@ -46,11 +46,8 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const CustomSideButtonMenu(),
-              // ElevatedButton(
-              //   onPressed: showNotification,
-              //   child: const Text('Show Notification'),
-              // ),
+            CustomSideButtonMenu(),
+
             ],
           ),
         ),
