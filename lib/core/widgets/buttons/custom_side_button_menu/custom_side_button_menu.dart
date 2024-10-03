@@ -239,6 +239,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         print("Icon 2 (Computer) tapped");
         break;
       case 3:
+        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.workManagerScreen);
         print("Icon 3 (Today) tapped");
         break;
       case 4:

@@ -1,4 +1,5 @@
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
+import 'package:dissertation_project_app/core/theme/colors.dart';
 import 'package:dissertation_project_app/main.dart'; // Import MainApp to access navigatorKey
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Pallete.colorThree,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
