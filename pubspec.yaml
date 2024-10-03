@@ -44,3 +44,11 @@ flutter:
     - assets/images/star.png
     - assets/images/earth.png
     - assets/images/space2.jpeg
+
+  fonts:
+    - family: Suse
+      fonts:
+        - asset: assets/fonts/suse/Suse-Light.ttf
+          weight: 200
+        - asset: assets/fonts/suse/Suse-Bold.ttf
+          weight: 700

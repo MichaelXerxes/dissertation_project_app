@@ -84,10 +84,8 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
       priority: event.todo.priority.toString(),
     ));
 
-    emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
     await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
-    var savedItem = await box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
-    print("Saved item: $savedItem");
+    emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
   }
 
   FutureOr<void> _onRemoveToDoListItem(

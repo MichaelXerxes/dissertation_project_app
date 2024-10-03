@@ -1,5 +1,6 @@
 import 'package:dissertation_project_app/core/helpers/date_format_helper.dart';
 import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
+import 'package:dissertation_project_app/core/theme/colors.dart';
 import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
 import 'package:dissertation_project_app/core/widgets/filter_menu/filter_menu_to_do_list.dart';
 import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.dart';
@@ -76,7 +77,7 @@ class _ToDoPageState extends State<ToDoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To-Do Service '),
+        title: Text('To-Do Service ',style: TextStyle(color: Pallete.colorTwo),),
         actions: [
           IconButton(
             icon: const Icon(Icons.menu),
