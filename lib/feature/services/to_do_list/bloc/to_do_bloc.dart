@@ -36,7 +36,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
     final List<dynamic>? toDoItemsHive =
         await box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
-
+    _toDoList.clear();
     if (toDoItemsHive != null) {
       List<ToDoItem> toDoItems = toDoItemsHive.map((dynamic item) {
         final toDoItemHive = item as ToDoItemHive;

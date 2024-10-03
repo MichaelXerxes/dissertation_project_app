@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ToDoListItem extends StatelessWidget {
   final ToDoItem todo;
+
   const ToDoListItem({super.key, required this.todo});
 
   @override
@@ -16,11 +17,13 @@ class ToDoListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                color: PriorityDropdown.getPriorityColor(todo.priority),
-                width: 3,
-                style: BorderStyle.solid),
-            borderRadius: BorderRadius.all(Radius.circular(8))),
+          border: Border.all(
+            color: PriorityDropdown.getPriorityColor(todo.priority),
+            width: 3,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
         child: ListTile(
           title: Column(
             children: [
@@ -43,7 +46,8 @@ class ToDoListItem extends StatelessWidget {
                         TextSpan(
                           text: todo.priority.toString().split('.').last,
                           style: TextStyle(
-                            color: PriorityDropdown.getPriorityColor(todo.priority),
+                            color: PriorityDropdown.getPriorityColor(
+                                todo.priority),
                           ),
                         ),
                       ],
@@ -54,7 +58,7 @@ class ToDoListItem extends StatelessWidget {
             ],
           ),
           subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
@@ -73,15 +77,20 @@ class ToDoListItem extends StatelessWidget {
                 ),
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
                         icon: Icon(Icons.edit),
+                        padding: EdgeInsets.all(0),
+                        constraints: BoxConstraints(),
+                        iconSize: 24,
+                        color:Colors.orange,
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -90,8 +99,13 @@ class ToDoListItem extends StatelessWidget {
                           );
                         },
                       ),
+
                       IconButton(
                         icon: Icon(Icons.delete),
+                        padding: EdgeInsets.all(0),// Remove extra padding
+                        constraints: BoxConstraints(), // Remove default constraints
+                        iconSize: 24,
+                        color:Colors.red,
                         onPressed: () {
                           context.read<ToDoBloc>().add(
                                 RemoveToDoListItem(id: todo.id),

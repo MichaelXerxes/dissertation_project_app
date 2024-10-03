@@ -2,11 +2,11 @@ import 'package:dissertation_project_app/core/helpers/date_format_helper.dart';
 import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
 import 'package:dissertation_project_app/core/widgets/bottom_bar.dart';
 import 'package:dissertation_project_app/core/widgets/filter_menu/filter_menu_to_do_list.dart';
-import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority_dropdown.dart';
 import 'package:dissertation_project_app/core/enums/fliter_menu_to_do_list_enum.dart';
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/custom_floating_action_button.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/to_do_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,23 +106,24 @@ class _ToDoPageState extends State<ToDoPage> {
               },
             );
           } else if (state is ToDoError) {
-
-            return const Center(child: Text('Failed to load to-dos. Please try again later.'));
+            return const Center(
+              child: Text('Failed to load ToDo List . Please try again later.'),
+            );
           } else {
-            return const Center(child: Text('Unknown state'));
+            return const LoadAppDataScreen();
           }
         },
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),
-        child: FloatingActionButton(
-          heroTag: "hero_to_do_page",
+        child: CustomFloatingActionButton(
+          icon: Icons.add,
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => AddItemPage()),
             );
           },
-          child: const Icon(Icons.add),
+          heroTag: "hero_to_do_page",
         ),
       ),
       bottomNavigationBar: const BottomBar(indexValue: 1),
