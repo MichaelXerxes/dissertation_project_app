@@ -1,6 +1,6 @@
 import 'package:dissertation_project_app/core/storage_hive/hive_register_adapter.dart';
 import 'package:dissertation_project_app/core/theme/text_styles.dart';
-import 'package:dissertation_project_app/feature/services/hive/to_do_hive/to_do_data_hive.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/data/to_do_hive/to_do_data_hive.dart';
 import 'package:dissertation_project_app/home_page.dart';
 import 'package:dissertation_project_app/core/main_utils/app_repositories/app_repositories.dart';
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';

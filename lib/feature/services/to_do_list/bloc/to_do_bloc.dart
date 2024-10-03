@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/core/helpers/local_notification_helper.dart';
 import 'package:dissertation_project_app/core/storage_hive/hive_properites.dart';
-import 'package:dissertation_project_app/feature/services/hive/to_do_hive/to_do_data_hive.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/data/to_do_hive/to_do_data_hive.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';

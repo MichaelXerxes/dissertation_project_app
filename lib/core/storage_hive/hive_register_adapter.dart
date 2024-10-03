@@ -1,6 +1,4 @@
-
-
-import 'package:dissertation_project_app/feature/services/hive/to_do_hive/to_do_data_hive.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/data/to_do_hive/to_do_data_hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveRegisterAdapter {
@@ -10,9 +8,5 @@ class HiveRegisterAdapter {
     if (!Hive.isAdapterRegistered(ToDoItemHiveAdapter().typeId)) {
       Hive.registerAdapter(ToDoItemHiveAdapter());
     }
-
-    // if (!Hive.isAdapterRegistered(FormDataHiveAdapter().typeId)) {
-    //   Hive.registerAdapter(FormDataHiveAdapter());
-    // }
   }
 }

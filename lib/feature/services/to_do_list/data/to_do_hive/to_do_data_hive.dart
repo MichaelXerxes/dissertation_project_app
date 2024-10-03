@@ -22,25 +22,23 @@ class ToDoItemHive extends Equatable {
   @HiveField(HiveToDoListProperties.expiredDate)
   final DateTime expiredDate;
 
-  // Store priority as a String
   @HiveField(HiveToDoListProperties.priority)
   final String priority;
 
-  // Constructor that allows setting the priority as a String or from enum
   ToDoItemHive({
     required this.id,
     required this.title,
     required this.content,
     DateTime? dateTimeAdded,
     DateTime? expiredDate,
-    String? priority, // default priority as String
+    String? priority,
   })  : dateTimeAdded = dateTimeAdded ?? DateTime.now(),
-        expiredDate = expiredDate ?? DateTime.now().add(const Duration(days: 60)),
+        expiredDate =
+            expiredDate ?? DateTime.now().add(const Duration(days: 60)),
         priority = priority ?? PriorityLevelEnum.LOW.toString().split('.').last;
 
-  // Helper to convert String back to PriorityLevelEnum
   PriorityLevelEnum get priorityEnum => PriorityLevelEnum.values.firstWhere(
-          (e) => e.toString().split('.').last == priority,
+      (e) => e.toString().split('.').last == priority,
       orElse: () => PriorityLevelEnum.LOW);
 
   @override

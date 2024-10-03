@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dissertation_project_app/core/helpers/constants.dart';
+import 'package:dissertation_project_app/core/tools/constants.dart';
 import 'package:dissertation_project_app/core/helpers/error_handling.dart';
 
 class InternetConnectionChecker {
