@@ -8,7 +8,7 @@ class WorkManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Week Manager'),
+        title: const Text('Work Manager'),
       ),
       body: SfCalendar(
         view: CalendarView.week,
