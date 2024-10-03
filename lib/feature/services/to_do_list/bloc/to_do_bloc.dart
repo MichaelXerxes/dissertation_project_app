@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/core/helpers/local_notification_helper.dart';
+import 'package:dissertation_project_app/core/storage_hive/hive_properites.dart';
+import 'package:dissertation_project_app/feature/services/hive/to_do_hive/to_do_data_hive.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'to_do_event.dart';
 
@@ -12,6 +15,8 @@ part 'to_do_state.dart';
 
 class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   ToDoBloc() : super(ToDoInitial()) {
+    on<InitialToDo>(_onInitialLoad);
+    on<LoadToDoList>(_onLoadToDoList);
     on<AddToDoListItem>(_onAddToDoListItem);
     on<RemoveToDoListItem>(_onRemoveToDoListItem);
     on<UpdateToDoList>(_onUpdateToDoList);
@@ -20,25 +25,118 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
   final List<ToDoItem> _toDoList = [];
 
+  Future<void> _onInitialLoad(
+      InitialToDo event, Emitter<ToDoState> emit) async {}
+
+  Future<void> _onLoadToDoList(
+      LoadToDoList event, Emitter<ToDoState> emit) async {
+    emit(ToDoLoading());
+
+    Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
+
+    final List<dynamic>? toDoItemsHive =
+        await box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+
+    if (toDoItemsHive != null) {
+      List<ToDoItem> toDoItems = toDoItemsHive.map((dynamic item) {
+        final toDoItemHive = item as ToDoItemHive;
+        return ToDoItem(
+          id: toDoItemHive.id,
+          title: toDoItemHive.title,
+          content: toDoItemHive.content,
+          expiredDate: toDoItemHive.expiredDate,
+          priority: PriorityLevelEnum.values.firstWhere(
+            (priorityLevel) =>
+                priorityLevel.toString() == toDoItemHive.priority,
+            orElse: () => PriorityLevelEnum.LOW,
+          ),
+          dateTimeAdded: toDoItemHive.dateTimeAdded,
+        );
+      }).toList();
+
+      _toDoList.addAll(toDoItems);
+
+      emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+    } else {
+      emit(ToDoError());
+      _toDoList.clear();
+    }
+  }
+
   FutureOr<void> _onAddToDoListItem(
-      AddToDoListItem event, Emitter<ToDoState> emit) {
+      AddToDoListItem event, Emitter<ToDoState> emit) async {
+    Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
+    List<dynamic>? getExistingHiveData =
+        box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+    List<ToDoItemHive> toDoNewList = [];
+
     _toDoList.add(event.todo);
+
+    if (getExistingHiveData != null) {
+      toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
+    }
+
+    toDoNewList.add(ToDoItemHive(
+      id: event.todo.id,
+      title: event.todo.title,
+      content: event.todo.content,
+      expiredDate: event.todo.expiredDate,
+      priority: event.todo.priority.toString(),
+    ));
+
     emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
+    await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
+    var savedItem = await box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+    print("Saved item: $savedItem");
   }
 
   FutureOr<void> _onRemoveToDoListItem(
-      RemoveToDoListItem event, Emitter<ToDoState> emit) {
+      RemoveToDoListItem event, Emitter<ToDoState> emit) async {
+    Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
+    List<dynamic>? getExistingHiveData =
+        box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+
     _toDoList.removeWhere((todo) => todo.id == event.id);
+
+    if (getExistingHiveData != null) {
+      List<ToDoItemHive> toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
+      toDoNewList.removeWhere((item) => item.id == event.id);
+
+      await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
+    }
+
     NotificationHelper.cancelNotification(event.id.hashCode);
+
     emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
   }
 
   FutureOr<void> _onUpdateToDoList(
-      UpdateToDoList event, Emitter<ToDoState> emit) {
+      UpdateToDoList event, Emitter<ToDoState> emit) async {
     final index = _toDoList.indexWhere((todo) => todo.id == event.todo.id);
 
     if (index != -1) {
       _toDoList[index] = event.todo;
+
+      Box box = await Hive.openBox(HiveToDoListProperties.TO_DO_LIST_DATA_BOX);
+      List<dynamic>? getExistingHiveData =
+          box.get(HiveToDoListProperties.TO_DO_LIST_DATA_KEY);
+      List<ToDoItemHive> toDoNewList = [];
+
+      if (getExistingHiveData != null) {
+        toDoNewList = getExistingHiveData.cast<ToDoItemHive>();
+        toDoNewList.removeWhere((item) => item.id == event.todo.id);
+      }
+
+      toDoNewList.add(ToDoItemHive(
+        id: event.todo.id,
+        title: event.todo.title,
+        content: event.todo.content,
+        expiredDate: event.todo.expiredDate,
+        priority: event.todo.priority.toString(),
+      ));
+
+      await box.put(HiveToDoListProperties.TO_DO_LIST_DATA_KEY, toDoNewList);
+
       emit(ToDoLoadSuccess(todos: List.from(_toDoList)));
     }
   }
@@ -100,7 +198,7 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
         .any((task) => task.priority == PriorityLevelEnum.MEDIUM);
 
     if (hasHighPriority) {
-      stringBuffer.writeln("*** Priority - Medium ***");
+      stringBuffer.writeln("*** Priority - HIGH ***");
       for (var task in highPriorityTasks) {
         if (task.priority == PriorityLevelEnum.HIGH) {
           stringBuffer.writeln(

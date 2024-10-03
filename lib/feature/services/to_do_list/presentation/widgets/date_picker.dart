@@ -1,4 +1,5 @@
 import 'package:dissertation_project_app/core/helpers/date_format_helper.dart';
+import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -6,8 +7,8 @@ class DatePicker extends StatefulWidget {
   final ValueChanged<DateTime?> onDateSelected;
   final DateTime? selectedDate;
 
-  const DatePicker({Key? key, required this.onDateSelected, this.selectedDate})
-      : super(key: key);
+  const DatePicker(
+      {super.key, required this.onDateSelected, this.selectedDate});
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -44,14 +45,18 @@ class _DatePickerState extends State<DatePicker> {
       children: [
         Text(
           _expiredDateSelected == null
-              ? 'No Date Selected ${_expiredDateSelected}'
+              ? 'No Date Selected! ${_expiredDateSelected ?? ""}'
               : 'Selected: ${DateFormatHelper.dateFomrat(_expiredDateSelected)}',
           style: const TextStyle(color: Colors.black54),
         ),
         const SizedBox(height: 10),
-        ElevatedButton(
+        // ElevatedButton(
+        //   onPressed: () => _datePicker(context),
+        //   child: const Text('Pick Expiration Date'),
+        // ),
+        CustomFloatingButton(
           onPressed: () => _datePicker(context),
-          child: const Text('Pick Expiration Date'),
+          buttonText: 'Pick Expiration Date',
         ),
       ],
     );

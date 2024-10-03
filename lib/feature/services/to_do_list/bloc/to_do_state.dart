@@ -20,4 +20,4 @@ class ToDoLoadSuccess extends ToDoState {
   List<Object?> get props => [todos];
 }
 
-class ToDoOperationFailure extends ToDoState {}
+class ToDoError extends ToDoState {}

@@ -23,6 +23,13 @@ class _ToDoPageState extends State<ToDoPage> {
   FilterMenuToDoListEnum _selectedFilter = FilterMenuToDoListEnum.ALL;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<ToDoBloc>(context).add(LoadToDoList());
+  }
+
   List<ToDoItem> _filteredToDos(List<ToDoItem> toDoList) {
     switch (_selectedFilter) {
       case FilterMenuToDoListEnum.TITLE:
@@ -98,8 +105,11 @@ class _ToDoPageState extends State<ToDoPage> {
                 return ToDoListItem(todo: todo);
               },
             );
+          } else if (state is ToDoError) {
+
+            return const Center(child: Text('Failed to load to-dos. Please try again later.'));
           } else {
-            return Center(child: Text('Failed to load to-dos.'));
+            return const Center(child: Text('Unknown state'));
           }
         },
       ),
