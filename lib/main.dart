@@ -1,5 +1,5 @@
+import 'package:dissertation_project_app/core/storage_hive/hive_register_adapter.dart';
 import 'package:dissertation_project_app/core/theme/text_styles.dart';
-import 'package:dissertation_project_app/feature/services/hive/piority_level/piority_level_hive.dart';
 import 'package:dissertation_project_app/feature/services/hive/to_do_hive/to_do_data_hive.dart';
 import 'package:dissertation_project_app/home_page.dart';
 import 'package:dissertation_project_app/core/main_utils/app_repositories/app_repositories.dart';
@@ -11,15 +11,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 Future<void> main() async {
   tz.initializeTimeZones();
-  await Hive.initFlutter();
-  Hive.registerAdapter(ToDoItemHiveAdapter());
-  //Hive.registerAdapter(PriorityLevelEnumAdapter());
-  //var box = await Hive.openBox<ToDoItemHive>('todoBox');
+
+  await RegisterAdapterPerformer.register();
+
   Bloc.observer = AppBlocObserver();
   runApp(const MainApp());
 }
