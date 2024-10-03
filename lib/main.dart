@@ -14,7 +14,7 @@ import 'package:timezone/data/latest.dart' as tz;
 Future<void> main() async {
   tz.initializeTimeZones();
 
-  await RegisterAdapterPerformer.register();
+  await HiveRegisterAdapter.register();
 
   Bloc.observer = AppBlocObserver();
   runApp(const MainApp());
