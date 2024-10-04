@@ -21,3 +21,14 @@ class AddMeetingEvent extends WorkManagerEvent {
   @override
   List<Object> get props => [eventName, eventDescription, from, to, isAllDay];
 }
+class DisplayMeetingEvent extends WorkManagerEvent {
+  final List<Meeting> meetings;
+
+  const DisplayMeetingEvent({
+    required this.meetings,
+  });
+
+
+  @override
+  List<Object> get props => [meetings];
+}

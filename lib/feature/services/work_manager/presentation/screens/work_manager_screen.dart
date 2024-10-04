@@ -1,9 +1,13 @@
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
+import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
 import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button/custom_floating_button.dart';
 import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/bloc/work_manager_bloc.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/models/meeting_model.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/work_manager_left_custom_button.dart';
 import 'package:dissertation_project_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../widgets/work_manager_right_custom_button.dart';
@@ -18,7 +22,6 @@ class WorkManager extends StatefulWidget {
 class _WorkManagerState extends State<WorkManager> {
   CalendarView _calendarView = CalendarView.day;
   bool toggleButton = true;
-
 
   void _onLeftItemsClicked(int index) {
     switch (index) {
@@ -69,57 +72,64 @@ class _WorkManagerState extends State<WorkManager> {
       appBar: AppBar(
         title: const Text('Work Manager'),
       ),
-      body: SfCalendar(
-        key: ValueKey(_calendarView),
-        view: _calendarView,
-        dataSource: MeetingDataSource(_getDataSource()),
-        // weekViewSettings: const WeekViewSettings(),
+      body: BlocBuilder<WorkManagerBloc, WorkManagerState>(
+        builder: (context, state) {
+          if (state is WorkManagerLoaded) {
+            return SfCalendar(
+              key: ValueKey(_calendarView),
+              view: _calendarView,
+              dataSource: MeetingDataSource(state.meetings),
+              onTap: (CalendarTapDetails details) {
+                if (details.appointments != null &&
+                    details.appointments!.isNotEmpty) {
+                  final List<Meeting> meetings =
+                      details.appointments!.cast<Meeting>();
 
-        onTap: (CalendarTapDetails details) {
-          if (details.appointments != null &&
-              details.appointments!.isNotEmpty) {
-            final List<Meeting> meetings =
-                details.appointments!.cast<Meeting>();
-
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Meeting Details'),
-                  content: SizedBox(
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: meetings.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Meeting meeting = meetings[index];
-                        return ListTile(
-                          title: Text(meeting.eventName),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('From: ${meeting.from}'),
-                              Text('To: ${meeting.to}'),
-                              Text(
-                                  'All Day: ${meeting.isAllDay ? 'Yes' : 'No'}'),
-                              Text('Content: ${meeting.eventDescription}'),
-                            ],
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Meeting Details'),
+                        content: SizedBox(
+                          width: double.maxFinite,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: meetings.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final Meeting meeting = meetings[index];
+                              return ListTile(
+                                title: Text(meeting.eventName),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text('From: ${meeting.from}'),
+                                    Text('To: ${meeting.to}'),
+                                    Text(
+                                        'All Day: ${meeting.isAllDay ? 'Yes' : 'No'}'),
+                                    Text(
+                                        'Content: ${meeting.eventDescription}'),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('Close'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Close'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               },
             );
+          } else {
+            return const LoadAppDataScreen();
           }
         },
       ),
@@ -196,16 +206,4 @@ class MeetingDataSource extends CalendarDataSource {
 
     return meetingData;
   }
-}
-
-class Meeting {
-  String eventName;
-  String eventDescription;
-  DateTime from;
-  DateTime to;
-  Color background;
-  bool isAllDay;
-
-  Meeting(this.eventName, this.eventDescription, this.from, this.to,
-      this.background, this.isAllDay);
 }
