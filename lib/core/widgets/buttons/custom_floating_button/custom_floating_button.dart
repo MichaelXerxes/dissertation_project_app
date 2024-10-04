@@ -43,9 +43,9 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
     _controller.dispose();
   }
 
-  Alignment alignment1 = Alignment(0.0, 0.0);
-  Alignment alignment2 = Alignment(0.0, 0.0);
-  Alignment alignment3 = Alignment(0.0, 0.0);
+  Alignment alignment1 = Alignment(1.0, 1.0);
+  Alignment alignment2 = Alignment(1.0, 1.0);
+  Alignment alignment3 = Alignment(1.0, 1.0);
   double size1 = 50.0;
   double size2 = 50.0;
   double size3 = 50.0;
@@ -57,12 +57,14 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
         //   width: double.infinity, //MediaQuery.of(context).size.width,
         //   child: Center(
         // child:
-        Align(
-      alignment: const Alignment(-1.0, 0.0),
-      child: Container(
+      //   Align(
+      // alignment: const Alignment(1.0, 1.0),
+      // child:
+      Container(
         height: 250.0,
         width: 250.0,
-        child: Stack(
+        child:
+        Stack(
           children: [
             AnimatedItemContainer(
               minDuration: 275,
@@ -101,7 +103,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
               },
             ),
             Align(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomRight,
               child: Transform.rotate(
                 angle: _animation.value * pi * (3 / 4),
                 child: AnimatedContainer(
@@ -125,25 +127,25 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
                               _controller.forward();
                               Future.delayed(const Duration(milliseconds: 100),
                                   () {
-                                alignment1 = const Alignment(0.0, -0.8);
+                                alignment1 = const Alignment(1, -0.4);
                                 size1 = 50.0;
                               });
                               Future.delayed(const Duration(milliseconds: 200),
                                   () {
-                                alignment2 = const Alignment(0.8, 0.0);
+                                alignment2 = const Alignment(0.1, 0.1);
                                 size2 = 50.0;
                               });
                               Future.delayed(const Duration(milliseconds: 300),
                                   () {
-                                alignment3 = const Alignment(0.0, 0.8);
+                                alignment3 = const Alignment(0.0, 1);
                                 size3 = 50.0;
                               });
                             } else {
                               toggleButton = !toggleButton;
                               _controller.reverse();
-                              alignment1 = const Alignment(0.0, 0.0);
-                              alignment2 = const Alignment(0.0, 0.0);
-                              alignment3 = const Alignment(0.0, 0.0);
+                              alignment1 = const Alignment(1.0, 1.0);
+                              alignment2 = const Alignment(1.0, 1.0);
+                              alignment3 = const Alignment(1.0, 1.0);
                               size1 = size2 = size3 = 20.0;
                             }
                           });
@@ -157,9 +159,9 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
               ),
             )
           ],
-        ),
-      ),
-    );
+        )
+      );
+    // );
     //   ),
     // );
   }

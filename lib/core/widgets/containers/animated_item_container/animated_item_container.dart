@@ -8,9 +8,10 @@ class AnimatedItemContainer extends StatelessWidget {
   final bool toggleButton;
   final double size;
   final Function onTap;
+  Color? backgroundColor = Colors.black87;
 
-  const AnimatedItemContainer({
-    Key? key,
+  AnimatedItemContainer({
+    super.key,
     required this.minDuration,
     required this.maxDuration,
     required this.icon,
@@ -18,7 +19,8 @@ class AnimatedItemContainer extends StatelessWidget {
     required this.toggleButton,
     required this.size,
     required this.onTap,
-  }) : super(key: key);
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,10 @@ class AnimatedItemContainer extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(microseconds: 300),
           curve: toggleButton ? Curves.easeIn : Curves.easeOut,
-          height: size,
-          width: size,
+          height: toggleButton ? 0 : size,
+          width: toggleButton ? 0 : size,
           decoration: BoxDecoration(
-            color: Colors.black87,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(40.0),
           ),
           child: Icon(

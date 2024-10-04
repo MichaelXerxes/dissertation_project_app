@@ -20,13 +20,15 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
   late Animation _animation;
   bool isClickable = true;
   bool isClickedToNavigate = false;
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300),
-        reverseDuration: Duration(milliseconds: 250));
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+      reverseDuration: Duration(milliseconds: 250),
+    );
 
     _animation = CurvedAnimation(
         parent: _controller,
@@ -54,6 +56,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
   double size3 = 80.0;
   double size4 = 80.0;
   double size5 = 80.0;
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -157,7 +160,7 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                         //     :
                         toggleButton ? 300.0 : 160.0,
                     decoration: BoxDecoration(
-                      color: Colors.transparent,//blue[600],
+                      color: Colors.transparent, //blue[600],
                       borderRadius:
                           // isClickedToNavigate
                           //     ? BorderRadius.circular(0)
@@ -172,31 +175,24 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
                       ],
                     ),
                     child: Material(
-                        animationDuration: Duration(milliseconds: 675),
-                        color: Colors.transparent,
-                        child: IconButton(
-                            splashColor: Colors.orange[400],
-                            splashRadius: 32.0,
-                            onPressed: isClickable
-                                ? () {
-                                    setState(() {
-                                      _onTap(999);
-                                    });
-                                  }
-                                : null,
-                            icon:
-                               Image.asset(
-                                "assets/images/earth.png",
-                                height:  280.0 ,
-                              ),
-                            )
-                            // "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
-
-                            ),
-                    // Image.network(
-                    //   "https://static-00.iconduck.com/assets.00/circle-cross-icon-512x512-xqrzmbe1.png",
-                    //   height: toggleButton ? 250.0 : 142.0,
-                    // )),
+                      animationDuration: Duration(milliseconds: 675),
+                      color: Colors.transparent,
+                      child: IconButton(
+                        splashColor: Colors.orange[400],
+                        splashRadius: 32.0,
+                        onPressed: isClickable
+                            ? () {
+                                setState(() {
+                                  _onTap(999);
+                                });
+                              }
+                            : null,
+                        icon: Image.asset(
+                          "assets/images/earth.png",
+                          height: 280.0,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -239,7 +235,8 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
         print("Icon 2 (Computer) tapped");
         break;
       case 3:
-        MainApp.navigatorKey.currentState!.pushNamed(AppRoutes.workManagerScreen);
+        MainApp.navigatorKey.currentState!
+            .pushNamed(AppRoutes.workManagerScreen);
         print("Icon 3 (Today) tapped");
         break;
       case 4:
@@ -277,15 +274,12 @@ class _CustomSideButtonMenuState extends State<CustomSideButtonMenu>
     } else {
       toggleButton = !toggleButton;
       _controller.reverse();
-      // alignment1 = alignment2 =
-      //     alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
-      //
-      // size1 = size2 = size3 = size4 = size5 = 20.0;
+
       Future.delayed(const Duration(milliseconds: 100), () {
         setState(() {
           alignment1 = alignment2 =
               alignment3 = alignment4 = alignment5 = const Alignment(-1.0, 0.0);
-          size1 = size2 = size3 = size4 = size5 = 20.0; // Smooth reduction
+          size1 = size2 = size3 = size4 = size5 = 20.0;
         });
       });
     }

@@ -2,7 +2,8 @@ import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart'
 import 'package:dissertation_project_app/core/screens/test_screen.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/add_item_page.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/presentation/screens/to_do_page.dart';
-import 'package:dissertation_project_app/feature/services/work_manager/presentation/work_manager_screen.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/presentation/screens/work_manager_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dissertation_project_app/home_page.dart';
 
@@ -21,6 +22,9 @@ class AppRoutes {
   static const String workManagerScreen =
       '/services/work_manager/presentation/work_manager_screen';
 
+  static const String addNewEventScreen =
+      '/services/work_manager/presentation/add_new_event_screen';
+
   static final routes = <String, WidgetBuilder>{
     homePage: (context) => const HomePage(title: "Home Page"),
     toDoPage: (context) => const ToDoPage(),
@@ -28,6 +32,7 @@ class AppRoutes {
     weatherPage: (context) => WeatherPage(),
     loadAppDataScreen: (context) =>const LoadAppDataScreen(),
     testScreen: (context) => RotatingCirclesScreen(),
-    workManagerScreen:(context) =>const WorkManager()
+    workManagerScreen:(context) =>const WorkManager(),
+    addNewEventScreen:(context) =>const AddNewEventScreen()
   };
 }
