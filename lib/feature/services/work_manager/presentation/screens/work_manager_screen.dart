@@ -3,6 +3,7 @@ import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart'
 import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button/custom_floating_button.dart';
 import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/bloc/work_manager_bloc.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/models/meeting_model.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/work_manager_left_custom_button.dart';
 import 'package:dissertation_project_app/main.dart';
@@ -12,14 +13,14 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../widgets/work_manager_right_custom_button.dart';
 
-class WorkManager extends StatefulWidget {
-  const WorkManager({super.key});
+class WorkManagerScreen extends StatefulWidget {
+  const WorkManagerScreen({super.key});
 
   @override
-  State<WorkManager> createState() => _WorkManagerState();
+  State<WorkManagerScreen> createState() => _WorkManagerScreenState();
 }
 
-class _WorkManagerState extends State<WorkManager> {
+class _WorkManagerScreenState extends State<WorkManagerScreen> {
   CalendarView _calendarView = CalendarView.day;
   bool toggleButton = true;
 
@@ -78,7 +79,7 @@ class _WorkManagerState extends State<WorkManager> {
             return SfCalendar(
               key: ValueKey(_calendarView),
               view: _calendarView,
-              dataSource: MeetingDataSource(state.meetings),
+              dataSource: MeetingDataListManager(state.meetings),
               onTap: (CalendarTapDetails details) {
                 if (details.appointments != null &&
                     details.appointments!.isNotEmpty) {
@@ -145,65 +146,11 @@ class _WorkManagerState extends State<WorkManager> {
             bottom: 20,
             right: 0,
             child: WorkManagerRightCustomButton(
-                onItemClicked: _onRightItemsClicked),
+              onItemClicked: _onRightItemsClicked,
+            ),
           ),
         ],
       ),
     );
-  }
-
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    final DateTime startTime2 = DateTime(today.year, today.month, today.day, 1);
-    final DateTime endTime2 = startTime.add(const Duration(hours: 5));
-    meetings.add(Meeting('Conference', "some random text messeage 111",
-        startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting('Conference', "some random text messeage 222",
-        startTime2, endTime2, const Color(0xFF0F8644), false));
-    return meetings;
-  }
-}
-
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return _getMeetingData(index).from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return _getMeetingData(index).to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return _getMeetingData(index).eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return _getMeetingData(index).background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return _getMeetingData(index).isAllDay;
-  }
-
-  Meeting _getMeetingData(int index) {
-    final dynamic meeting = appointments![index];
-    late final Meeting meetingData;
-    if (meeting is Meeting) {
-      meetingData = meeting;
-    }
-
-    return meetingData;
   }
 }

@@ -32,7 +32,7 @@ class AppRoutes {
     weatherPage: (context) => WeatherPage(),
     loadAppDataScreen: (context) =>const LoadAppDataScreen(),
     testScreen: (context) => RotatingCirclesScreen(),
-    workManagerScreen:(context) =>const WorkManager(),
+    workManagerScreen:(context) =>const WorkManagerScreen(),
     addNewEventScreen:(context) =>const AddNewEventScreen()
   };
 }
