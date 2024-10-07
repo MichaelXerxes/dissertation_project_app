@@ -14,7 +14,7 @@ part 'work_manager_state.dart';
 class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
   WorkManagerBloc() : super(const WorkManagerInitial()) {
     on<AddMeetingEvent>(_onAddNewMeeting);
-
+    on<MeetingRemoveEvent>(_oneMeetingRemove);
     on<DisplayMeetingEvent>((event, emit) {
       emit(WorkManagerLoaded(meetings: event.meetings));
     });
@@ -38,6 +38,15 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
 
     } else {
       emit(WorkManagerLoaded(meetings: [newMeeting]));
+    }
+  }
+
+  FutureOr<void> _oneMeetingRemove(
+      MeetingRemoveEvent event, Emitter<WorkManagerState> emit) async {
+    if (state is WorkManagerLoaded) {
+      final currentMeetingList = List<Meeting>.from(state.meetings)
+        ..remove(event.meeting);
+      emit(state.copyWith(meetings: currentMeetingList));
     }
   }
 }

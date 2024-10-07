@@ -34,3 +34,12 @@ class DisplayMeetingEvent extends WorkManagerEvent {
   @override
   List<Object> get props => [meetings];
 }
+
+class MeetingRemoveEvent extends WorkManagerEvent {
+  final Meeting meeting;
+
+  const MeetingRemoveEvent({required this.meeting});
+
+  @override
+  List<Object> get props => [meeting];
+}
