@@ -35,26 +35,10 @@ class WorkManagerBloc extends Bloc<WorkManagerEvent, WorkManagerState> {
       emit(state.copyWith(
         meetings: List.from(state.meetings)..add(newMeeting),
       ));
+
     } else {
       emit(WorkManagerLoaded(meetings: [newMeeting]));
     }
   }
 }
-// (event, emit) {
-// final newMeeting = Meeting(
-//   event.eventName,
-//   event.eventDescription,
-//   event.startDate,
-//   event.finishDate,
-//   event.background ?? Colors.green,
-//   event.isAllDay,
-// );
-//
-// if (state is WorkManagerLoaded) {
-// emit(state.copyWith(
-// meetings: List.from(state.meetings)..add(newMeeting),
-// ));
-// } else {
-// emit(WorkManagerLoaded(meetings: [newMeeting]));
-// }
-// }
+

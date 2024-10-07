@@ -1,9 +1,6 @@
 import 'dart:developer';
 
 import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.dart';
-import 'package:dissertation_project_app/core/screens/load_app_data_screen.dart';
-import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button/custom_floating_button.dart';
-import 'package:dissertation_project_app/core/widgets/containers/animated_item_container/animated_item_container.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/models/meeting_model.dart';
@@ -35,7 +32,22 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
       ),
       body: BlocBuilder<WorkManagerBloc, WorkManagerState>(
         builder: (context, state) {
-          if (state is WorkManagerLoaded) {
+          if (state is WorkManagerInitial) {
+            return SfCalendar(
+              key: ValueKey(_calendarView),
+              view: _calendarView,
+              timeSlotViewSettings: const TimeSlotViewSettings(
+                timeIntervalHeight: 60,
+                timeInterval: Duration(minutes: 60),
+                startHour: 1,
+                endHour: 24,
+                timeFormat: 'h:mm a',
+                timeRulerSize: 60,
+              ),
+              dataSource: MeetingDataListManager(state.meetings),
+              onTap: (details) => _onCalendarEventClicked(context, details),
+            );
+          } else if (state is WorkManagerLoaded) {
             return SfCalendar(
               key: ValueKey(_calendarView),
               view: _calendarView,
@@ -51,7 +63,9 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
               onTap: (details) => _onCalendarEventClicked(context, details),
             );
           } else {
-            return const LoadAppDataScreen();
+            return const Center(
+              child: Text("Something went wrong!"),
+            );
           }
         },
       ),
@@ -83,6 +97,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
           AppRoutes.addNewEventScreen,
           arguments: {
             'selectedDate': details.date,
+            'isLastDateVisible': false,
           },
         );
       }

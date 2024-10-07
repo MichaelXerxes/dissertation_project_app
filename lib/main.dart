@@ -28,8 +28,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppRepositories(
-        child: AppBlocProviders(
+    return
+      // AppRepositories(
+      //   child:
+        AppBlocProviders(
       child: MaterialApp(
         navigatorKey: navigatorKey,
         initialRoute: '/home_page',
@@ -42,6 +44,7 @@ class MainApp extends StatelessWidget {
           body: Center(child: HomePage(title: "")),
         ),
       ),
-    ));
+    //)
+    );
   }
 }
