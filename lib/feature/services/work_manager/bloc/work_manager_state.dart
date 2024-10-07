@@ -13,7 +13,7 @@ final class WorkManagerInitial extends WorkManagerState {
 
   @override
   WorkManagerState copyWith({List<Meeting>? meetings}) {
-    return WorkManagerInitial();
+    return const  WorkManagerInitial();
   }
 
   @override

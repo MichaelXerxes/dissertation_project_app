@@ -9,12 +9,12 @@ class MeetingDataListManager extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return _getMeetingData(index).from;
+    return _getMeetingData(index).startDate;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return _getMeetingData(index).to;
+    return _getMeetingData(index).finishDate;
   }
 
   @override
@@ -24,7 +24,7 @@ class MeetingDataListManager extends CalendarDataSource {
 
   @override
   Color getColor(int index) {
-    return _getMeetingData(index).background;
+    return _getMeetingData(index).backgroundColor;
   }
 
   @override

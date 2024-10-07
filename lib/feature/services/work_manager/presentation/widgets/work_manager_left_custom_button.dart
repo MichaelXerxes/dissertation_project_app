@@ -63,36 +63,39 @@ class _WorkManagerLeftCustomButtonState
       width: 250.0,
       child: Stack(
         children: [
-          AnimatedItemContainer(
-            minDuration: 275,
-            maxDuration: 875,
-            icon: Icons.view_day,
-            alignment: alignment1,
-            toggleButton: toggleButton,
-            size: size1,
-            onTap: () => _onTap(0),
-            backgroundColor: Colors.blue,
-          ),
-          AnimatedItemContainer(
-            minDuration: 275,
-            maxDuration: 875,
-            icon: Icons.view_week,
-            alignment: alignment2,
-            toggleButton: toggleButton,
-            size: size2,
-            onTap: () => _onTap(1),
-            backgroundColor: Colors.greenAccent,
-          ),
-          AnimatedItemContainer(
-            minDuration: 275,
-            maxDuration: 875,
-            icon: Icons.calendar_month,
-            alignment: alignment3,
-            toggleButton: toggleButton,
-            size: size3,
-            onTap: () => _onTap(2),
-            backgroundColor: Colors.purpleAccent,
-          ),
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.view_day,
+              alignment: alignment1,
+              toggleButton: toggleButton,
+              size: size1,
+              onTap: () => _onTap(0),
+              backgroundColor: Colors.blue,
+            ),
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.view_week,
+              alignment: alignment2,
+              toggleButton: toggleButton,
+              size: size2,
+              onTap: () => _onTap(1),
+              backgroundColor: Colors.greenAccent,
+            ),
+          if (!toggleButton)
+            AnimatedItemContainer(
+              minDuration: 275,
+              maxDuration: 875,
+              icon: Icons.calendar_month,
+              alignment: alignment3,
+              toggleButton: toggleButton,
+              size: size3,
+              onTap: () => _onTap(2),
+              backgroundColor: Colors.purpleAccent,
+            ),
           Align(
             alignment: defaultAlignment,
             child: Transform.rotate(

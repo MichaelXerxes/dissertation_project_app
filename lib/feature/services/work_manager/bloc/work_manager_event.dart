@@ -6,20 +6,22 @@ sealed class WorkManagerEvent extends Equatable {
 class AddMeetingEvent extends WorkManagerEvent {
   final String eventName;
   final String eventDescription;
-  final DateTime from;
-  final DateTime to;
+  final DateTime startDate;
+  final DateTime finishDate;
+  final Color background;
   final bool isAllDay;
 
   const AddMeetingEvent({
     required this.eventName,
     required this.eventDescription,
-    required this.from,
-    required this.to,
+    required this.startDate,
+    required this.finishDate,
+    required this.background,
     required this.isAllDay,
   });
 
   @override
-  List<Object> get props => [eventName, eventDescription, from, to, isAllDay];
+  List<Object> get props => [eventName, eventDescription, startDate, finishDate,background, isAllDay];
 }
 class DisplayMeetingEvent extends WorkManagerEvent {
   final List<Meeting> meetings;

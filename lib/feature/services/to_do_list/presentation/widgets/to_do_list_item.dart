@@ -102,8 +102,8 @@ class ToDoListItem extends StatelessWidget {
 
                       IconButton(
                         icon: Icon(Icons.delete),
-                        padding: EdgeInsets.all(0),// Remove extra padding
-                        constraints: BoxConstraints(), // Remove default constraints
+                        padding: EdgeInsets.all(0),
+                        constraints: BoxConstraints(),
                         iconSize: 24,
                         color:Colors.red,
                         onPressed: () {

@@ -64,33 +64,36 @@ class _WorkManagerRightCustomButtonState
         width: 250.0,
         child: Stack(
           children: [
+            if (!toggleButton)
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.message,
               alignment: alignment1,
               toggleButton: toggleButton,
-              size: size1,
+              size: toggleButton? 0:size1,
                 onTap: () => _onTap(0),
               backgroundColor: Colors.red,
             ),
+            if (!toggleButton)
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.phone,
               alignment: alignment2,
               toggleButton: toggleButton,
-              size: size2,
+              size:toggleButton? 0:size2,
                 onTap: () => _onTap(1),
               backgroundColor: Colors.orange,
             ),
+            if (!toggleButton)
             AnimatedItemContainer(
               minDuration: 275,
               maxDuration: 875,
               icon: Icons.camera,
               alignment: alignment3,
               toggleButton: toggleButton,
-              size: size3,
+              size: toggleButton?0:size3,
                 onTap: () => _onTap(2),
               backgroundColor: Colors.yellow,
             ),
