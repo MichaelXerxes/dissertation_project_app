@@ -7,7 +7,6 @@ import 'package:dissertation_project_app/feature/services/work_manager/presentat
 import 'package:flutter/material.dart';
 import 'package:dissertation_project_app/home_page.dart';
 
-import 'package:dissertation_project_app/weather_app/weather_page.dart';
 
 class AppRoutes {
   static const String homePage = '/home_page';
@@ -29,7 +28,6 @@ class AppRoutes {
     homePage: (context) => const HomePage(title: "Home Page"),
     toDoPage: (context) => const ToDoPage(),
     addItemPage: (context) => AddItemPage(),
-    weatherPage: (context) => WeatherPage(),
     loadAppDataScreen: (context) =>const LoadAppDataScreen(),
     testScreen: (context) => RotatingCirclesScreen(),
     workManagerScreen:(context) =>const WorkManagerScreen(),
