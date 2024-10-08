@@ -1,10 +1,10 @@
 import 'package:dissertation_project_app/core/tools/constants.dart';
+import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
 import 'package:flutter/material.dart';
 
 class AddNewEventForBottomSheet extends StatelessWidget {
-  final bool isLastDateVisible;
   final GlobalKey<FormState> formKey;
   TextEditingController? controllerName;
   TextEditingController? controllerDescription;
@@ -24,7 +24,6 @@ class AddNewEventForBottomSheet extends StatelessWidget {
 
   AddNewEventForBottomSheet({
     super.key,
-    required this.isLastDateVisible,
     required this.formKey,
     this.controllerName,
     this.controllerDescription,
@@ -46,13 +45,17 @@ class AddNewEventForBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      reverse: true,
+      //reverse: true,
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,  // Adjust padding based on keyboard
+          top: 16.0,
+        ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           child: ListView(
-            shrinkWrap: true, // Add this line
+            shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               const SizedBox(height: 16),
@@ -80,45 +83,16 @@ class AddNewEventForBottomSheet extends StatelessWidget {
                 maxLines: null,
               ),
               const SizedBox(height: 16),
-              if (isLastDateVisible) ...[
-                ListTile(
-                  title: const Text('From'),
-                  subtitle: Text(fromSelectedDate != null &&
-                          fromSelectedTime != null
-                      ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
-                      : 'Select Start Date & Time'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: selectFromDateTime,
-                  ),
-                ),
-                ListTile(
-                  title: const Text('To'),
-                  subtitle: Text(toSelectedDate != null &&
-                          toSelectedTime != null
-                      ? '${toSelectedDate!.toLocal().toString().split(' ')[0]} ${toSelectedTime!.format(context)}'
-                      : 'Select End Date & Time'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: selectToDateTime,
-                  ),
-                ),
-              ] else ...[
-                Text(fromSelectedDate != null &&
-                        fromSelectedTime != null
+              Text(
+                fromSelectedDate != null && fromSelectedTime != null
                     ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
-                    : 'Select Start Date & Time'),
-              ],
+                    : 'Select Start Date & Time',
+              ),
               const SizedBox(height: 16),
               CustomDropDownHours(
-                  value: eventDurationPerDay,
-                  selectedHours: onEventDurationPerDay
-                  //     (selectedHours) {
-                  //   setState(() {
-                  //     widget.eventDurationPerDay = selectedHours;
-                  //   });
-                  // },
-                  ),
+                value: eventDurationPerDay,
+                selectedHours: onEventDurationPerDay,
+              ),
               const SizedBox(height: 16),
               ColorSelector(
                 initialColor: selectedColor,
@@ -128,17 +102,12 @@ class AddNewEventForBottomSheet extends StatelessWidget {
               SwitchListTile(
                 title: const Text('All Day Event'),
                 value: isAllDay,
-                onChanged:onAllDay
-                //     (bool value) {
-                //   setState(() {
-                //     widget.isAllDay = value;
-                //   });
-                // },
+                onChanged: onAllDay,
               ),
               const SizedBox(height: 16),
-              FloatingActionButton(
+              CustomFloatingButton(
                 onPressed: addMeeting,
-                child: const Icon(Icons.add),
+                buttonText: 'Accept',
               ),
               const SizedBox(height: 32),
             ],

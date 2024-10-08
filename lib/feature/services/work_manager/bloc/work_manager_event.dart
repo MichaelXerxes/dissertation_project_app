@@ -24,15 +24,19 @@ class AddMeetingEvent extends WorkManagerEvent {
   List<Object> get props => [eventName, eventDescription, startDate, finishDate,background, isAllDay];
 }
 class DisplayMeetingEvent extends WorkManagerEvent {
-  final List<Meeting> meetings;
-
-  const DisplayMeetingEvent({
-    required this.meetings,
-  });
-
+  // final List<Meeting> meetings;
+  //
+  // const DisplayMeetingEvent({
+  //   required this.meetings,
+  // });
+  const DisplayMeetingEvent();  // No arguments needed
 
   @override
-  List<Object> get props => [meetings];
+  List<Object> get props => [];
+
+
+  // @override
+  // List<Object> get props => [meetings];
 }
 
 class MeetingRemoveEvent extends WorkManagerEvent {

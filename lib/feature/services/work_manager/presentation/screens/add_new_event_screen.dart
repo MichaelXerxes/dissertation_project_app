@@ -166,7 +166,6 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
   Widget build(BuildContext context) {
     return widget.isLastDateVisible == true
         ? AddNewEventForScafold(
-            isLastDateVisible: widget.isLastDateVisible,
             formKey: _formKey,
             selectedColor: _selectedColor,
             controllerName: _controllerName,
@@ -193,7 +192,6 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
             },
           )
         : AddNewEventForBottomSheet(
-            isLastDateVisible: widget.isLastDateVisible,
             formKey: _formKey,
             selectedColor: _selectedColor,
             controllerName: _controllerName,

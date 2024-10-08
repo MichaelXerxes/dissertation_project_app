@@ -1,10 +1,10 @@
 import 'package:dissertation_project_app/core/tools/constants.dart';
+import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
 import 'package:flutter/material.dart';
 
 class AddNewEventForScafold extends StatelessWidget {
-  final bool isLastDateVisible;
   final GlobalKey<FormState> formKey;
   TextEditingController? controllerName;
   TextEditingController? controllerDescription;
@@ -24,7 +24,6 @@ class AddNewEventForScafold extends StatelessWidget {
 
   AddNewEventForScafold({
     super.key,
-    required this.isLastDateVisible,
     required this.formKey,
     this.controllerName,
     this.controllerDescription,
@@ -45,22 +44,25 @@ class AddNewEventForScafold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      height: screenHeight * 0.9, // Take 90% of the screen height
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: SingleChildScrollView(
         reverse: true,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Form(
             key: formKey,
             child: Column(
-              // shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                if (isLastDateVisible == true) ...[
-                  const SizedBox(height: 76),
-                ] else ...[
-                  const SizedBox(height: 16),
-                ],
+                const SizedBox(height: 16),
                 Text('Add New Event'),
                 const SizedBox(height: 16),
                 TextFormField(
@@ -85,39 +87,33 @@ class AddNewEventForScafold extends StatelessWidget {
                   maxLines: null,
                 ),
                 const SizedBox(height: 16),
-                if (isLastDateVisible) ...[
-                  ListTile(
-                    title: const Text('From'),
-                    subtitle: Text(fromSelectedDate != null &&
-                            fromSelectedTime != null
-                        ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
-                        : 'Select Start Date & Time'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: selectFromDateTime,
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('To'),
-                    subtitle: Text(toSelectedDate != null &&
-                            toSelectedTime != null
-                        ? '${toSelectedDate!.toLocal().toString().split(' ')[0]} ${toSelectedTime!.format(context)}'
-                        : 'Select End Date & Time'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: selectToDateTime,
-                    ),
-                  ),
-                ] else ...[
-                  Text(fromSelectedDate != null &&
+                ListTile(
+                  title: const Text('From'),
+                  subtitle: Text(fromSelectedDate != null &&
                           fromSelectedTime != null
                       ? '${fromSelectedDate!.toLocal().toString().split(' ')[0]} ${fromSelectedTime!.format(context)}'
                       : 'Select Start Date & Time'),
-                ],
+                  trailing: IconButton(
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: selectFromDateTime,
+                  ),
+                ),
+                ListTile(
+                  title: const Text('To'),
+                  subtitle: Text(
+                    toSelectedDate != null && toSelectedTime != null
+                        ? '${toSelectedDate!.toLocal().toString().split(' ')[0]} ${toSelectedTime!.format(context)}'
+                        : 'Select End Date & Time',
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: selectToDateTime,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 CustomDropDownHours(
                   value: eventDurationPerDay,
-                  selectedHours:onEventDurationPerDay,
+                  selectedHours: onEventDurationPerDay,
                 ),
                 const SizedBox(height: 16),
                 ColorSelector(
@@ -131,10 +127,12 @@ class AddNewEventForScafold extends StatelessWidget {
                   onChanged: onAllDay,
                 ),
                 const SizedBox(height: 16),
-                FloatingActionButton(
+                CustomFloatingButton(
                   onPressed: addMeeting,
-                  child: const Icon(Icons.add),
+                  buttonText: 'Accept',
                 ),
+
+                const SizedBox(height: 32),
               ],
             ),
           ),

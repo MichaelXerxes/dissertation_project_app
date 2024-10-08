@@ -4,7 +4,7 @@ import 'package:dissertation_project_app/core/widgets/priority_dropdown/priority
 import 'package:dissertation_project_app/core/enums/piority_level_enum.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/models/to_do_item/to_do_item_model.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/bloc/to_do_bloc.dart';
-import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/custom_floating_button.dart';
+import 'package:dissertation_project_app/core/widgets/buttons/custom_floating_button.dart';
 import 'package:dissertation_project_app/feature/services/to_do_list/presentation/widgets/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

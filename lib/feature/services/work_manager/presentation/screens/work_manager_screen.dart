@@ -26,6 +26,13 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   bool toggleButton = true;
 
   @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<WorkManagerBloc>(context).add(const DisplayMeetingEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -82,14 +89,17 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
             bottom: 20,
             right: 0,
             child: WorkManagerRightCustomButton(
-              onItemClicked: (index) => _onRightItemsClicked(index), // Pass the date
+              onItemClicked: (index) =>
+                  _onRightItemsClicked(index), // Pass the date
             ),
           ),
         ],
       ),
     );
   }
-  void _showAddEventBottomSheet(BuildContext context, DateTime dateTime,bool isLastDateVisible) {
+
+  void _showAddEventBottomSheet(
+      BuildContext context, DateTime dateTime, bool isLastDateVisible) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -99,9 +109,9 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
             bottom: MediaQuery.of(context).viewInsets.bottom,
             top: MediaQuery.of(context).viewInsets.bottom > 0 ? 50 : 0,
           ),
-          child: SafeArea(
-            child: AddNewEventScreen(selectedDatetime: dateTime,isLastDateVisible:isLastDateVisible),
-          ), // Pass the date
+          child: AddNewEventScreen(
+              selectedDatetime: dateTime,
+              isLastDateVisible: isLastDateVisible), // Pass the date
         );
       },
     );
@@ -118,7 +128,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
         //     'isLastDateVisible': false,
         //   },
         // );
-        _showAddEventBottomSheet(context, details.date!,false);
+        _showAddEventBottomSheet(context, details.date!, false);
       }
     } else {
       final List<Meeting> meetings = details.appointments!.cast<Meeting>();
@@ -178,9 +188,9 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
   void _onRightItemsClicked(int index) {
     switch (index) {
       case 0:
-      // MainApp.navigatorKey.currentState!
-      //            .pushNamed(AppRoutes.addNewEventScreen);
-         _showAddEventBottomSheet(context, DateTime.now(),true);
+        // MainApp.navigatorKey.currentState!
+        //            .pushNamed(AppRoutes.addNewEventScreen);
+        _showAddEventBottomSheet(context, DateTime.now(), true);
         break;
       case 1:
         setState(() {

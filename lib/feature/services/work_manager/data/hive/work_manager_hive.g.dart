@@ -6,17 +6,17 @@ part of 'work_manager_hive.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MeetingAdapter extends TypeAdapter<Meeting> {
+class WorkManagerHiveAdapter extends TypeAdapter<WorkManagerHive> {
   @override
   final int typeId = 3;
 
   @override
-  Meeting read(BinaryReader reader) {
+  WorkManagerHive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Meeting(
+    return WorkManagerHive(
       eventName: fields[0] as String,
       eventDescription: fields[1] as String,
       startDate: fields[2] as DateTime,
@@ -27,7 +27,7 @@ class MeetingAdapter extends TypeAdapter<Meeting> {
   }
 
   @override
-  void write(BinaryWriter writer, Meeting obj) {
+  void write(BinaryWriter writer, WorkManagerHive obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -50,7 +50,7 @@ class MeetingAdapter extends TypeAdapter<Meeting> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MeetingAdapter &&
+      other is WorkManagerHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

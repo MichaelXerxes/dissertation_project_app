@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 part 'work_manager_hive.g.dart';
 
 @HiveType(typeId: HiveProperties.workManagerID)
-class Meeting {
+class WorkManagerHive {
   @HiveField(0)
   final String eventName;
 
@@ -25,7 +25,7 @@ class Meeting {
   @HiveField(5)
   final bool isAllDay;
 
-  Meeting({
+  WorkManagerHive({
     required this.eventName,
     required this.eventDescription,
     required this.startDate,
