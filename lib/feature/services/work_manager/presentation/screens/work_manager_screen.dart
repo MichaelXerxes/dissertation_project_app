@@ -4,6 +4,7 @@ import 'package:dissertation_project_app/core/main_utils/app_routes/app_routes.d
 import 'package:dissertation_project_app/feature/services/work_manager/bloc/work_manager_bloc.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/helpers/meeting_data_list_manager.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/models/meeting_model.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/presentation/screens/add_new_event_screen.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/custom_meetings_alert_dialog.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/work_manager_left_custom_button.dart';
 import 'package:dissertation_project_app/main.dart';
@@ -81,11 +82,28 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
             bottom: 20,
             right: 0,
             child: WorkManagerRightCustomButton(
-              onItemClicked: _onRightItemsClicked,
+              onItemClicked: (index) => _onRightItemsClicked(index), // Pass the date
             ),
           ),
         ],
       ),
+    );
+  }
+  void _showAddEventBottomSheet(BuildContext context, DateTime dateTime,bool isLastDateVisible) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: MediaQuery.of(context).viewInsets.bottom > 0 ? 50 : 0,
+          ),
+          child: SafeArea(
+            child: AddNewEventScreen(selectedDatetime: dateTime,isLastDateVisible:isLastDateVisible),
+          ), // Pass the date
+        );
+      },
     );
   }
 
@@ -93,13 +111,14 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
       BuildContext context, CalendarTapDetails details) {
     if (details.appointments == null || details.appointments!.isEmpty) {
       if (details.date != null) {
-        MainApp.navigatorKey.currentState!.pushNamed(
-          AppRoutes.addNewEventScreen,
-          arguments: {
-            'selectedDate': details.date,
-            'isLastDateVisible': false,
-          },
-        );
+        // MainApp.navigatorKey.currentState!.pushNamed(
+        //   AppRoutes.addNewEventScreen,
+        //   arguments: {
+        //     'selectedDate': details.date,
+        //     'isLastDateVisible': false,
+        //   },
+        // );
+        _showAddEventBottomSheet(context, details.date!,false);
       }
     } else {
       final List<Meeting> meetings = details.appointments!.cast<Meeting>();
@@ -135,11 +154,33 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
     }
   }
 
+  // void _onRightItemsClicked(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       // MainApp.navigatorKey.currentState!
+  //       //     .pushNamed(AppRoutes.addNewEventScreen);
+  //       _showAddEventBottomSheet(context, details.date!);
+  //       break;
+  //     case 1:
+  //       setState(() {
+  //         _calendarView = CalendarView.week;
+  //       });
+  //       break;
+  //     case 2:
+  //       setState(() {
+  //         _calendarView = CalendarView.month;
+  //       });
+  //       break;
+  //     default:
+  //       print("Unknown icon tapped");
+  //   }
+  // }
   void _onRightItemsClicked(int index) {
     switch (index) {
       case 0:
-        MainApp.navigatorKey.currentState!
-            .pushNamed(AppRoutes.addNewEventScreen);
+      // MainApp.navigatorKey.currentState!
+      //            .pushNamed(AppRoutes.addNewEventScreen);
+         _showAddEventBottomSheet(context, DateTime.now(),true);
         break;
       case 1:
         setState(() {

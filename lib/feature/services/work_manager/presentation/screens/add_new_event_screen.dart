@@ -1,5 +1,7 @@
 import 'package:dissertation_project_app/core/tools/constants.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/bloc/work_manager_bloc.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/add_new_event_for_bottom_sheet.dart';
+import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/add_new_event_for_scafold.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/color_selector.dart';
 import 'package:dissertation_project_app/feature/services/work_manager/presentation/widgets/custom_dropdown_hours.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AddNewEventScreen extends StatefulWidget {
-  const AddNewEventScreen({super.key});
+  final DateTime? selectedDatetime;
+  final bool isLastDateVisible;
+
+  const AddNewEventScreen({
+    super.key,
+    this.selectedDatetime,
+    required this.isLastDateVisible,
+  });
 
   @override
   _AddNewEventScreenState createState() => _AddNewEventScreenState();
@@ -24,18 +33,21 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
   bool _isAllDay = false;
   Color _selectedColor = Colors.red;
   int _eventDurationPerDay = 1;
-  bool _isLastDateVisible = true;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final arguments = ModalRoute.of(context)?.settings.arguments as Map?;
-    if (arguments != null && arguments['selectedDate'] != null) {
-      DateTime selectedDate = arguments['selectedDate'];
-
-      _isLastDateVisible = arguments['isLastDateVisible'];
-      _fromSelectedDate = selectedDate;
-      _fromSelectedTime = TimeOfDay.fromDateTime(selectedDate);
+    // final arguments = ModalRoute.of(context)?.settings.arguments as Map?;
+    // if (arguments != null && arguments['selectedDate'] != null) {
+    //   DateTime selectedDate = arguments['selectedDate'];
+    //
+    //   _isLastDateVisible = arguments['isLastDateVisible'];
+    //   _fromSelectedDate = selectedDate;
+    //   _fromSelectedTime = TimeOfDay.fromDateTime(selectedDate);
+    // }
+    if (widget.selectedDatetime != null) {
+      _fromSelectedDate = widget.selectedDatetime;
+      _fromSelectedTime = TimeOfDay.fromDateTime(widget.selectedDatetime!);
     }
   }
 
@@ -152,104 +164,60 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add New Event'),
-      ),
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              shrinkWrap: true, // Add this line
-              physics: const NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                TextFormField(
-                  controller: _controllerName,
-                  decoration: const InputDecoration(
-                    labelText: 'Event Name',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter an event name';
-                    }
-                    return null;
-                  },
-                  maxLength: Constants.MAX_LENGHT_TEXT_TITLE,
-                ),
-                TextFormField(
-                  controller: _controllerDescription,
-                  decoration: const InputDecoration(
-                    labelText: 'Event Description',
-                  ),
-                  maxLength: Constants.MAX_LENGHT_TEXT_CONTENT,
-                  maxLines: null,
-                ),
-                const SizedBox(height: 16),
-                if (_isLastDateVisible) ...[
-                  ListTile(
-                    title: const Text('From'),
-                    subtitle: Text(_fromSelectedDate != null &&
-                            _fromSelectedTime != null
-                        ? '${_fromSelectedDate!.toLocal().toString().split(' ')[0]} ${_fromSelectedTime!.format(context)}'
-                        : 'Select Start Date & Time'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectFromDateTime(context),
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('To'),
-                    subtitle: Text(_toSelectedDate != null &&
-                            _toSelectedTime != null
-                        ? '${_toSelectedDate!.toLocal().toString().split(' ')[0]} ${_toSelectedTime!.format(context)}'
-                        : 'Select End Date & Time'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectToDateTime(context),
-                    ),
-                  ),
-                ] else ...[
-                  Text(_fromSelectedDate != null && _fromSelectedTime != null
-                      ? '${_fromSelectedDate!.toLocal().toString().split(' ')[0]} ${_fromSelectedTime!.format(context)}'
-                      : 'Select Start Date & Time'),
-                ],
-                const SizedBox(height: 16),
-                CustomDropDownHours(
-                  value: _eventDurationPerDay,
-                  selectedHours: (selectedHours) {
-                    setState(() {
-                      _eventDurationPerDay = selectedHours;
-                    });
-                  },
-                ),
-                const SizedBox(height: 16),
-                ColorSelector(
-                  initialColor: _selectedColor,
-                  onColorSelected: _onColorSelected,
-                ),
-                const SizedBox(height: 16),
-                SwitchListTile(
-                  title: const Text('All Day Event'),
-                  value: _isAllDay,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isAllDay = value;
-                    });
-                  },
-                ),
-                const SizedBox(height: 16),
-                FloatingActionButton(
-                  onPressed: _addMeeting,
-                  child: const Icon(Icons.add),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    return widget.isLastDateVisible == true
+        ? AddNewEventForScafold(
+            isLastDateVisible: widget.isLastDateVisible,
+            formKey: _formKey,
+            selectedColor: _selectedColor,
+            controllerName: _controllerName,
+            controllerDescription: _controllerDescription,
+            onColorSelected: _onColorSelected,
+            isAllDay: _isAllDay,
+            addMeeting: _addMeeting,
+            fromSelectedDate: _fromSelectedDate,
+            fromSelectedTime: _fromSelectedTime,
+            toSelectedDate: _toSelectedDate,
+            toSelectedTime: _toSelectedTime,
+            selectFromDateTime: () => _selectFromDateTime(context),
+            selectToDateTime: () => _selectToDateTime(context),
+            eventDurationPerDay: _eventDurationPerDay,
+            onEventDurationPerDay: (selectedHours) {
+              setState(() {
+                _eventDurationPerDay = selectedHours;
+              });
+            },
+            onAllDay: (bool value) {
+              setState(() {
+                _isAllDay = value;
+              });
+            },
+          )
+        : AddNewEventForBottomSheet(
+            isLastDateVisible: widget.isLastDateVisible,
+            formKey: _formKey,
+            selectedColor: _selectedColor,
+            controllerName: _controllerName,
+            controllerDescription: _controllerDescription,
+            onColorSelected: _onColorSelected,
+            isAllDay: _isAllDay,
+            addMeeting: _addMeeting,
+            fromSelectedDate: _fromSelectedDate,
+            fromSelectedTime: _fromSelectedTime,
+            toSelectedDate: _toSelectedDate,
+            toSelectedTime: _toSelectedTime,
+            selectFromDateTime: () => _selectFromDateTime(context),
+            selectToDateTime: () => _selectToDateTime(context),
+            eventDurationPerDay: _eventDurationPerDay,
+            onEventDurationPerDay: (selectedHours) {
+              setState(() {
+                _eventDurationPerDay = selectedHours;
+              });
+            },
+            onAllDay: (bool value) {
+              setState(() {
+                _isAllDay = value;
+              });
+            },
+          );
   }
 }

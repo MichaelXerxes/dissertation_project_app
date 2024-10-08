@@ -26,6 +26,16 @@ dependencies:
   hive: ^2.0.0
   syncfusion_flutter_calendar: ^26.2.12
   flutter_colorpicker: ^1.1.0
+  flutter_launcher_icons: ^0.11.0
+#  webview_flutter: ^4.9.0
+  webview_flutter: ^2.0.4
+  flutter_widget_from_html_core: ^0.14.11
+  url_launcher: ^6.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/earth.png"
 
 dev_dependencies:
   hive_generator: ^2.0.1
@@ -46,6 +56,7 @@ flutter:
     - assets/images/star.png
     - assets/images/earth.png
     - assets/images/space2.jpeg
+    - assets/myfile.html
 
   fonts:
     - family: Suse
