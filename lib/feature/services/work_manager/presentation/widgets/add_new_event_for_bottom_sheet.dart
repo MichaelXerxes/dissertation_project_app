@@ -45,9 +45,9 @@ class AddNewEventForBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      //reverse: true,
+
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,  // Adjust padding based on keyboard
+          bottom: MediaQuery.of(context).viewInsets.bottom,
           top: 16.0,
         ),
       child: Padding(

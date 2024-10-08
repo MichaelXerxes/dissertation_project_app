@@ -46,7 +46,7 @@ class AddNewEventForScafold extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.9, // Take 90% of the screen height
+      height: screenHeight * 0.9,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,

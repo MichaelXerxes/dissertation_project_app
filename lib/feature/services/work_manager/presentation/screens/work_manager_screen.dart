@@ -41,34 +41,40 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
       body: BlocBuilder<WorkManagerBloc, WorkManagerState>(
         builder: (context, state) {
           if (state is WorkManagerInitial) {
-            return SfCalendar(
-              key: ValueKey(_calendarView),
-              view: _calendarView,
-              timeSlotViewSettings: const TimeSlotViewSettings(
-                timeIntervalHeight: 60,
-                timeInterval: Duration(minutes: 60),
-                startHour: 1,
-                endHour: 24,
-                timeFormat: 'h:mm a',
-                timeRulerSize: 60,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: SfCalendar(
+                key: ValueKey(_calendarView),
+                view: _calendarView,
+                timeSlotViewSettings: const TimeSlotViewSettings(
+                  timeIntervalHeight: 60,
+                  timeInterval: Duration(minutes: 60),
+                  startHour: 1,
+                  endHour: 24,
+                  timeFormat: 'h:mm a',
+                  timeRulerSize: 60,
+                ),
+                dataSource: MeetingDataListManager(state.meetings),
+                onTap: (details) => _onCalendarEventClicked(context, details),
               ),
-              dataSource: MeetingDataListManager(state.meetings),
-              onTap: (details) => _onCalendarEventClicked(context, details),
             );
           } else if (state is WorkManagerLoaded) {
-            return SfCalendar(
-              key: ValueKey(_calendarView),
-              view: _calendarView,
-              timeSlotViewSettings: const TimeSlotViewSettings(
-                timeIntervalHeight: 60,
-                timeInterval: Duration(minutes: 60),
-                startHour: 1,
-                endHour: 24,
-                timeFormat: 'h:mm a',
-                timeRulerSize: 60,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: SfCalendar(
+                key: ValueKey(_calendarView),
+                view: _calendarView,
+                timeSlotViewSettings: const TimeSlotViewSettings(
+                  timeIntervalHeight: 60,
+                  timeInterval: Duration(minutes: 60),
+                  startHour: 1,
+                  endHour: 24,
+                  timeFormat: 'h:mm a',
+                  timeRulerSize: 60,
+                ),
+                dataSource: MeetingDataListManager(state.meetings),
+                onTap: (details) => _onCalendarEventClicked(context, details),
               ),
-              dataSource: MeetingDataListManager(state.meetings),
-              onTap: (details) => _onCalendarEventClicked(context, details),
             );
           } else {
             return const Center(
@@ -90,7 +96,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
             right: 0,
             child: WorkManagerRightCustomButton(
               onItemClicked: (index) =>
-                  _onRightItemsClicked(index), // Pass the date
+                  _onRightItemsClicked(index),
             ),
           ),
         ],
@@ -110,8 +116,7 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
             top: MediaQuery.of(context).viewInsets.bottom > 0 ? 50 : 0,
           ),
           child: AddNewEventScreen(
-              selectedDatetime: dateTime,
-              isLastDateVisible: isLastDateVisible), // Pass the date
+              selectedDatetime: dateTime, isLastDateVisible: isLastDateVisible),
         );
       },
     );
@@ -121,13 +126,6 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
       BuildContext context, CalendarTapDetails details) {
     if (details.appointments == null || details.appointments!.isEmpty) {
       if (details.date != null) {
-        // MainApp.navigatorKey.currentState!.pushNamed(
-        //   AppRoutes.addNewEventScreen,
-        //   arguments: {
-        //     'selectedDate': details.date,
-        //     'isLastDateVisible': false,
-        //   },
-        // );
         _showAddEventBottomSheet(context, details.date!, false);
       }
     } else {
@@ -164,27 +162,6 @@ class _WorkManagerScreenState extends State<WorkManagerScreen> {
     }
   }
 
-  // void _onRightItemsClicked(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       // MainApp.navigatorKey.currentState!
-  //       //     .pushNamed(AppRoutes.addNewEventScreen);
-  //       _showAddEventBottomSheet(context, details.date!);
-  //       break;
-  //     case 1:
-  //       setState(() {
-  //         _calendarView = CalendarView.week;
-  //       });
-  //       break;
-  //     case 2:
-  //       setState(() {
-  //         _calendarView = CalendarView.month;
-  //       });
-  //       break;
-  //     default:
-  //       print("Unknown icon tapped");
-  //   }
-  // }
   void _onRightItemsClicked(int index) {
     switch (index) {
       case 0:

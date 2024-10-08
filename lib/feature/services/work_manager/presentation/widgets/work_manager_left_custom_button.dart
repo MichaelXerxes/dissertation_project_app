@@ -109,7 +109,7 @@ class _WorkManagerLeftCustomButtonState
                 child: Material(
                   color: Colors.transparent,
                   child: IconButton(
-                    splashColor: Colors.orange[400],
+                    splashColor: Colors.green[400],
                     splashRadius: 32.0,
                     onPressed: isClickable
                         ? () {
@@ -121,6 +121,7 @@ class _WorkManagerLeftCustomButtonState
                     icon: const Icon(
                       Icons.edit_calendar,
                       size: 40,
+                      color: Colors.red,
                     ),
                   ),
                 ),

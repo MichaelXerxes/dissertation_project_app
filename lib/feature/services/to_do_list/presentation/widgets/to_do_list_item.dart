@@ -77,8 +77,7 @@ class ToDoListItem extends StatelessWidget {
                 ),
               ),
               Column(
-                // crossAxisAlignment: CrossAxisAlignment.end,
-                // mainAxisAlignment: MainAxisAlignment.end,
+
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
@@ -119,7 +118,7 @@ class ToDoListItem extends StatelessWidget {
             ],
           ),
         ),
-        // trailing:
+
       ),
     );
   }
